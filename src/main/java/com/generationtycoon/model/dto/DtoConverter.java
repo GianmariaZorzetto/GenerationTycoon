@@ -73,6 +73,12 @@ public class DtoConverter {
                 .build();
     }
 
+    /**
+     * Metodo che converte un {@link Kaboom} in un {@link KaboomRespDto}.
+     *
+     * @param kaboom l'oggetto in ingresso.
+     * @return un {@code KaboomRespDto} con i campi impostati.
+     */
     public KaboomRespDto toKaboomRespDto(Kaboom kaboom) {
         return KaboomRespDto.builder()
                 .question(kaboom.getQuestion())

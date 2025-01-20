@@ -48,6 +48,11 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Double score;
 
+    /**
+     * Metodo per inizializzare un {@link UserBuilder}
+     *
+     * @return un nuovo {@code UserBuilder}.
+     */
     public static UserBuilder builder() {
         return new UserBuilder();
     }
@@ -287,17 +292,6 @@ public class User extends BaseEntity {
          */
         public UserBuilder difficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
-            return this;
-        }
-
-        /**
-         * Imposta la difficoltà.
-         *
-         * @param difficulty la difficoltà in ingresso come {@link String}.
-         * @return {@code this}.
-         */
-        public UserBuilder difficultyFromString(String difficulty) {
-            this.difficulty = Difficulty.fromString(difficulty);
             return this;
         }
 
