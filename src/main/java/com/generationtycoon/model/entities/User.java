@@ -79,7 +79,7 @@ public class User extends BaseEntity {
     }
 
     /**
-     * Costruttore della classe dato l'{@code ID}.
+     * Costruttore completo della classe.
      *
      * @param id         l'id dello {@code User}.
      * @param email      l'email dello {@code User}.
@@ -205,14 +205,38 @@ public class User extends BaseEntity {
         this.score = score;
     }
 
+    /**
+     * Classe che aderisce al pattern <em>builder</em> per la costruzione di {@code User}.
+     */
     public static class UserBuilder {
-        private String email;
-        private String password;
-        private String username;
-        private Difficulty difficulty;
-        private Double score;
+        /**
+         * L'id.
+         */
         private Long id;
+        /**
+         * L'email.
+         */
+        private String email;
+        /**
+         * La password.
+         */
+        private String password;
+        /**
+         * Lo username.
+         */
+        private String username;
+        /**
+         * La difficoltà.
+         */
+        private Difficulty difficulty;
+        /**
+         * Il punteggio.
+         */
+        private Double score;
 
+        /**
+         * Costruttore privato del builder, per istanziare un {@code UserBuilder} utilizzare il metodo {@link User#builder()}.
+         */
         private UserBuilder() {
             this.email = null;
             this.password = null;
@@ -222,36 +246,88 @@ public class User extends BaseEntity {
             this.id = null;
         }
 
+        /**
+         * Imposta l'email.
+         *
+         * @param email l'email in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder email(String email) {
             this.email = email;
             return this;
         }
 
+        /**
+         * Imposta la password in chiaro.
+         *
+         * @param password la password in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder password(String password) {
             this.password = password;
             return this;
         }
 
+        /**
+         * Imposta lo username.
+         *
+         * @param username lo username in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder username(String username) {
             this.username = username;
             return this;
         }
 
+        /**
+         * Imposta la difficoltà.
+         *
+         * @param difficulty la difficoltà in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder difficulty(Difficulty difficulty) {
             this.difficulty = difficulty;
             return this;
         }
 
+        /**
+         * Imposta la difficoltà.
+         *
+         * @param difficulty la difficoltà in ingresso come {@link String}.
+         * @return {@code this}.
+         */
+        public UserBuilder difficultyFromString(String difficulty) {
+            this.difficulty = Difficulty.fromString(difficulty);
+            return this;
+        }
+
+        /**
+         * Imposta lo score.
+         *
+         * @param score lo score in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder score(Double score) {
             this.score = score;
             return this;
         }
 
+        /**
+         * Imposta l'id dello user.
+         *
+         * @param id l'id in ingresso.
+         * @return {@code this}.
+         */
         public UserBuilder id(Long id) {
             this.id = id;
             return this;
         }
 
+        /**
+         * Completa la costruzione di un {@code User}
+         *
+         * @return un nuovo {@code User} in base ai campi impostati in precedenza.
+         */
         public User build() {
             if (id == null) return new User(email, password, username, difficulty, score);
             else return new User(id, email, password, username, difficulty, score);
