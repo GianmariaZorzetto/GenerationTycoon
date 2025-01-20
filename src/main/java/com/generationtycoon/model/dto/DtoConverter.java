@@ -19,10 +19,10 @@ public class DtoConverter {
      * @throws IllegalArgumentException se un parametro di {@code dto} non è conforme.
      */
     public User userLoginReqDtoToEntity(UserLoginReqDto dto) throws NullPointerException, IllegalArgumentException {
-        User user = new User();
-        user.setEmail(dto.email());
-        user.setPassword(dto.password());
-        return user;
+        return User.builder()
+                .email(dto.email())
+                .password(dto.password())
+                .build();
     }
 
     public UserLoginRespDto toUserLoginRespDto(User user) {
@@ -39,13 +39,12 @@ public class DtoConverter {
      * @throws IllegalArgumentException se un parametro di {@code dto} non è conforme.
      */
     public User userRegistrationReqDtoToEntity(UserRegistrationReqDto dto) throws NullPointerException, IllegalArgumentException {
-        User user = new User();
-        user.setEmail(dto.email());
-        user.setUsername(dto.username());
-        user.setPassword(dto.password());
-        user.setDifficulty(dto.difficulty());
-        user.setScore(0.0);
-        return user;
+        return User.builder()
+                .email(dto.email())
+                .username(dto.username())
+                .password(dto.password())
+                .difficulty(dto.difficulty())
+                .score(0.0).build();
     }
 
     /**
@@ -57,9 +56,7 @@ public class DtoConverter {
      * @throws IllegalArgumentException se un parametro di {@code dto} non è conforme.
      */
     public User userLeaderboardReqDtoToEntity(UserLeaderboardReqDto dto) throws NullPointerException, IllegalArgumentException {
-        User user = new User();
-        user.setUsername(dto.username());
-        return user;
+        return User.builder().username(dto.username()).build();
     }
 
     /**
@@ -69,16 +66,21 @@ public class DtoConverter {
      * @return un {@code UserLeaderboardRespDto} con i campi impostati.
      */
     public UserLeaderboardRespDto toUserLeaderboardRespDto(User user) {
-        return UserLeaderboardRespDto.of()
+        return UserLeaderboardRespDto.builder()
                 .username(user.getUsername())
                 .difficulty(user.getDifficulty())
                 .score(user.getScore())
                 .build();
     }
 
-    public KaboomRespDto toKaboomRespDto(Kaboom kaboom)
-    {
-        return KaboomRespDto.of()
+    /**
+     * Metodo che converte un {@link Kaboom} in un {@link KaboomRespDto}.
+     *
+     * @param kaboom l'oggetto in ingresso.
+     * @return un {@code KaboomRespDto} con i campi impostati.
+     */
+    public KaboomRespDto toKaboomRespDto(Kaboom kaboom) {
+        return KaboomRespDto.builder()
                 .question(kaboom.getQuestion())
                 .answer1(kaboom.getAnswer1())
                 .answer2(kaboom.getAnswer2())

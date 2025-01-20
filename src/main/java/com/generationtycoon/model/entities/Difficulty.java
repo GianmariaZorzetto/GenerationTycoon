@@ -44,9 +44,9 @@ public enum Difficulty {
      * Metodo che restituisce una difficoltà in base a una {@link String}.
      * Data una {@code difficulty} come {@link String} in ingresso il metodo restituisce un enum secondo il seguente schema:
      * <ul>
-     *     <li>{@code facile} -&gt; {@code EASY}</li>
-     *     <li>{@code intermedio} -&gt; {@code MEDIUM}</li>
-     *     <li>{@code avanzato} -&gt; {@code HARD}</li>
+     *     <li>{@code facile} o {@code easy} -&gt; {@code EASY}</li>
+     *     <li>{@code intermedio} o {@code medium} -&gt; {@code MEDIUM}</li>
+     *     <li>{@code avanzato} o {@code hard} -&gt; {@code HARD}</li>
      *     <li>{@code qualsiasiAltraStringa} -&gt; {@code null}</li>
      * </ul>
      * Il metodo è case insensitive.
@@ -57,13 +57,13 @@ public enum Difficulty {
     public static @Nullable Difficulty fromString(String difficulty) {
         if (difficulty == null) return null;
         switch (difficulty.toLowerCase()) {
-            case "facile" -> {
+            case "facile", "easy" -> {
                 return EASY;
             }
-            case "intermedio" -> {
+            case "intermedio", "medium" -> {
                 return MEDIUM;
             }
-            case "avanzato" -> {
+            case "avanzato", "hard" -> {
                 return HARD;
             }
             default -> {

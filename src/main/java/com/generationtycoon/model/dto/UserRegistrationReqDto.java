@@ -22,7 +22,7 @@ public record UserRegistrationReqDto(String email, String username, String passw
      *
      * @return un nuovo {@code UserRegistrationReqDtoBuilder}.
      */
-    public static UserRegistrationReqDtoBuilder of() {
+    public static UserRegistrationReqDtoBuilder builder() {
         return new UserRegistrationReqDtoBuilder();
     }
 
@@ -49,7 +49,7 @@ public record UserRegistrationReqDto(String email, String username, String passw
 
         /**
          * Costruttore vuoto e privato.
-         * Per inizializzare un UserRegistrationReqDtoBuilder utilizza {@link UserRegistrationReqDto#of}.
+         * Per inizializzare un UserRegistrationReqDtoBuilder utilizza {@link UserRegistrationReqDto#builder}.
          */
         private UserRegistrationReqDtoBuilder() {
         }
