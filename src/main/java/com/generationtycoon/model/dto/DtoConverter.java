@@ -1,5 +1,6 @@
 package com.generationtycoon.model.dto;
 
+import com.generationtycoon.model.entities.Kaboom;
 import com.generationtycoon.model.entities.User;
 import org.springframework.stereotype.Service;
 
@@ -75,5 +76,16 @@ public class DtoConverter {
                 .build();
     }
 
+    public KaboomRespDto toKaboomRespDto(Kaboom kaboom)
+    {
+        return KaboomRespDto.of()
+                .question(kaboom.getQuestion())
+                .answer1(kaboom.getAnswer1())
+                .answer2(kaboom.getAnswer2())
+                .answer3(kaboom.getAnswer3())
+                .answer4(kaboom.getAnswer4())
+                .correctColor(kaboom.getCorrectColor())
+                .build();
+    }
 
 }
