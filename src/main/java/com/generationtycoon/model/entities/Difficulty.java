@@ -1,9 +1,11 @@
 package com.generationtycoon.model.entities;
 
+import org.springframework.lang.Nullable;
+
 public enum Difficulty {
     EASY, MEDIUM, HARD;
 
-    public static Difficulty fromString(String difficulty) {
+    public static @Nullable Difficulty fromString(String difficulty) {
         switch (difficulty.toLowerCase()) {
             case "facile" -> {
                 return EASY;
