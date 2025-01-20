@@ -30,7 +30,7 @@ public enum Validator {
      * Costruisce un {@link Pattern} a partire da una {@link String}.
      *
      * @param regex la regex in ingresso.
-     * @throws PatternSyntaxException se la regex in ingresso non è valida.
+     * @throws PatternSyntaxException se {@code regex} in ingresso non è valida.
      */
     Validator(String regex) throws PatternSyntaxException {
         this.pattern = Pattern.compile(regex);
