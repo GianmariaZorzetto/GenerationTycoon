@@ -1,5 +1,9 @@
 package com.generationtycoon.model.dto;
 
-public record UserLeaderboardReqDto(String username)
-{
+/**
+ * Dto per la richiesta nella leaderboard.
+ *
+ * @param username lo username.
+ */
+public record UserLeaderboardReqDto(String username) {
 }
