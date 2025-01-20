@@ -48,6 +48,10 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Double score;
 
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
     /**
      * Costruttore vuoto della classe.
      */
@@ -64,24 +68,13 @@ public class User extends BaseEntity {
      * @param username   lo username dello {@code User}.
      * @param difficulty la difficoltà dello {@code User}.
      * @param score      lo score dello {@code User}.
-     * @throws IllegalArgumentException se uno dei parametri non è conforme.
-     * @throws NullPointerException     se uno dei parametri è {@code null}.
      */
-    public User(String email, String password, String username, Difficulty difficulty, Double score)
-            throws IllegalArgumentException, NullPointerException {
+    private User(String email, String password, String username, Difficulty difficulty, Double score) {
         super();
-        if (Validator.EMAIL.validate(email))
-            throw new IllegalArgumentException("Email non conforme.");
-        if (Validator.PASSWORD.validate(password))
-            throw new IllegalArgumentException("Password non conforme.");
-        if (Objects.requireNonNull(username, "Username non può essere null.").isBlank())
-            throw new IllegalArgumentException("Username non può essere vuoto.");
         this.email = email;
         this.password = DigestUtils.md5Hex(password);
         this.username = username;
-        this.difficulty = Objects.requireNonNull(difficulty, "Difficoltà non può essere null.");
-        if (Objects.requireNonNull(score, "Score non può essere null.") < 0)
-            throw new IllegalArgumentException("Score non può essere negativo.");
+        this.difficulty = difficulty;
         this.score = score;
     }
 
@@ -94,24 +87,16 @@ public class User extends BaseEntity {
      * @param username   lo username dello {@code User}.
      * @param difficulty la difficoltà dello {@code User}.
      * @param score      lo score dello {@code User}.
-     * @throws IllegalArgumentException se uno dei parametri non è conforme.
-     * @throws NullPointerException     se uno dei parametri è {@code null}.
+     * @throws IllegalArgumentException se {@code id} è minore di 1.
+     * @throws NullPointerException     se {@code id} è {@code null}.
      */
-    public User(Long id, String email, String password, String username, Difficulty difficulty, Double score)
+    private User(Long id, String email, String password, String username, Difficulty difficulty, Double score)
             throws IllegalArgumentException, NullPointerException {
         super(id);
-        if (Validator.EMAIL.validate(email))
-            throw new IllegalArgumentException("Email non conforme.");
-        if (Validator.PASSWORD.validate(password))
-            throw new IllegalArgumentException("Password non conforme.");
-        if (Objects.requireNonNull(username, "Username non può essere null.").isBlank())
-            throw new IllegalArgumentException("Username non può essere vuoto.");
         this.email = email;
         this.password = DigestUtils.md5Hex(password);
         this.username = username;
-        this.difficulty = Objects.requireNonNull(difficulty, "Difficoltà non può essere null.");
-        if (Objects.requireNonNull(score, "Score non può essere null.") < 0)
-            throw new IllegalArgumentException("Score non può essere negativo.");
+        this.difficulty = difficulty;
         this.score = score;
     }
 
@@ -218,5 +203,58 @@ public class User extends BaseEntity {
         if (Objects.requireNonNull(score, "Score non può essere null.") < 0)
             throw new IllegalArgumentException("Score non può essere negativo.");
         this.score = score;
+    }
+
+    public static class UserBuilder {
+        private String email;
+        private String password;
+        private String username;
+        private Difficulty difficulty;
+        private Double score;
+        private Long id;
+
+        private UserBuilder() {
+            this.email = null;
+            this.password = null;
+            this.username = null;
+            this.difficulty = null;
+            this.score = null;
+            this.id = null;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserBuilder difficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
+            return this;
+        }
+
+        public UserBuilder score(Double score) {
+            this.score = score;
+            return this;
+        }
+
+        public UserBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public User build() {
+            if (id == null) return new User(email, password, username, difficulty, score);
+            else return new User(id, email, password, username, difficulty, score);
+        }
     }
 }

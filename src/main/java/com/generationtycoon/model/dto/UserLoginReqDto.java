@@ -15,7 +15,7 @@ public record UserLoginReqDto(String email, String password) {
      *
      * @return un nuovo {@code UserLoginReqDtoBuilder}.
      */
-    public static UserLoginReqDtoBuilder of() {
+    public static UserLoginReqDtoBuilder builder() {
         return new UserLoginReqDtoBuilder();
     }
 

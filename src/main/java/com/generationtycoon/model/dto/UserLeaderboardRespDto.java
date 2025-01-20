@@ -19,7 +19,7 @@ public record UserLeaderboardRespDto(String username, Difficulty difficulty, dou
      *
      * @return un nuovo {@code UserLeaderboardRespDtoBuilder}.
      */
-    public static UserLeaderboardRespDtoBuilder of() {
+    public static UserLeaderboardRespDtoBuilder builder() {
         return new UserLeaderboardRespDtoBuilder();
     }
 
@@ -42,7 +42,7 @@ public record UserLeaderboardRespDto(String username, Difficulty difficulty, dou
 
         /**
          * Costruttore privato e vuoto di un {@code UserLeaderboardRespDtoBuilder}.
-         * Per inizializzare utilizzare {@link UserLeaderboardRespDto#of}
+         * Per inizializzare utilizzare {@link UserLeaderboardRespDto#builder}
          */
         private UserLeaderboardRespDtoBuilder() {
         }

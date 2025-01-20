@@ -5,7 +5,7 @@ import com.generationtycoon.model.entities.KaboomColors;
 public record KaboomRespDto(String question, String answer1, String answer2, String answer3, String answer4, KaboomColors correctColor)
 {
 
-	public static KaboomRespDtoBuilder of()
+	public static KaboomRespDtoBuilder builder()
 	{
 		return new KaboomRespDtoBuilder();
 	}
