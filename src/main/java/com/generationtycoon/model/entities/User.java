@@ -136,14 +136,15 @@ public class User extends BaseEntity {
     }
 
     /**
-     * Setter della password
+     * Setter della password già hashata.
      *
-     * @param password nuova password dello {@code User}, in chiaro.
-     * @throws IllegalArgumentException se {@code password} non è valida.
+     * @param password nuova password dello {@code User}, già hashata.
+     * @throws NullPointerException     se {@code password} è {@code null}.
+     * @throws IllegalArgumentException se {@code password}  è {@code blank}.
      */
     public void setPassword(String password) throws IllegalArgumentException {
-        if (!Validator.PASSWORD.validate(password))
-            throw new IllegalArgumentException("Password non conforme.");
+        if (Objects.requireNonNull(password, "Password null.").isBlank())
+            throw new IllegalArgumentException("Password blank");
         this.password = DigestUtils.md5Hex(password);
     }
 
@@ -267,16 +268,16 @@ public class User extends BaseEntity {
         }
 
         /**
-         * Imposta la password in chiaro.
-         * La password deve aderire alla regex indicata in {@link Validator#PASSWORD}.
+         * Imposta la password già hashata.
          *
          * @param password la password in ingresso.
          * @return {@code this}.
-         * @throws IllegalArgumentException se {@code password} non è valida.
+         * @throws NullPointerException     se {@code password} è {@code null}.
+         * @throws IllegalArgumentException se {@code password} è {@code blank}.
          */
-        public UserBuilder password(String password) throws IllegalArgumentException {
-            if (!Validator.PASSWORD.validate(password))
-                throw new IllegalArgumentException("Password non conforme.");
+        public UserBuilder password(String password) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(password, "Password null.").isBlank())
+                throw new IllegalArgumentException("Password blank");
             this.password = password;
             return this;
         }
