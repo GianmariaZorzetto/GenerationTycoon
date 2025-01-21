@@ -2,9 +2,9 @@ package com.generationtycoon.model.dto;
 
 import com.generationtycoon.model.entities.Difficulty;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-public record UserScoreReqDto(LocalDate startTime, LocalDate endTime, int hp, Difficulty difficulty)
-{
+public record UserScoreReqDto(LocalDateTime startTime, LocalDateTime endTime, int hp,
+                              Difficulty difficulty) {
 
 }
