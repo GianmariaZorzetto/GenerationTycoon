@@ -1,6 +1,6 @@
 package com.generationtycoon.model.entities;
 
-import com.generationtycoon.validator.Validator;
+import com.generationtycoon.utils.validator.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import org.apache.commons.codec.digest.DigestUtils;

@@ -1,9 +1,10 @@
-package com.generationtycoon.validator;
+package com.generationtycoon.utils.validator;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ValidatorTest {
     @ParameterizedTest
