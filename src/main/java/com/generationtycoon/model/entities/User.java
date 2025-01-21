@@ -121,7 +121,7 @@ public class User extends BaseEntity {
      * @throws IllegalArgumentException se {@code email} non è conforme.
      */
     public void setEmail(String email) throws IllegalArgumentException {
-        if (Validator.EMAIL.validate(email))
+        if (!Validator.EMAIL.validate(email))
             throw new IllegalArgumentException("Email non conforme.");
         this.email = email;
     }
@@ -142,7 +142,7 @@ public class User extends BaseEntity {
      * @throws IllegalArgumentException se {@code password} non è valida.
      */
     public void setPassword(String password) throws IllegalArgumentException {
-        if (Validator.PASSWORD.validate(password))
+        if (!Validator.PASSWORD.validate(password))
             throw new IllegalArgumentException("Password non conforme.");
         this.password = DigestUtils.md5Hex(password);
     }
@@ -252,23 +252,31 @@ public class User extends BaseEntity {
         }
 
         /**
-         * Imposta l'email.
+         * Imposta l'email.</br>
+         * L'email deve aderire alla regex indicata in {@link Validator#EMAIL}.
          *
          * @param email l'email in ingresso.
          * @return {@code this}.
+         * @throws IllegalArgumentException se {@code email} non è valida.
          */
-        public UserBuilder email(String email) {
+        public UserBuilder email(String email) throws IllegalArgumentException {
+            if (!Validator.EMAIL.validate(email))
+                throw new IllegalArgumentException("Email non conforme.");
             this.email = email;
             return this;
         }
 
         /**
          * Imposta la password in chiaro.
+         * La password deve aderire alla regex indicata in {@link Validator#PASSWORD}.
          *
          * @param password la password in ingresso.
          * @return {@code this}.
+         * @throws IllegalArgumentException se {@code password} non è valida.
          */
-        public UserBuilder password(String password) {
+        public UserBuilder password(String password) throws IllegalArgumentException {
+            if (!Validator.PASSWORD.validate(password))
+                throw new IllegalArgumentException("Password non conforme.");
             this.password = password;
             return this;
         }
@@ -278,8 +286,12 @@ public class User extends BaseEntity {
          *
          * @param username lo username in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code username} è {@code null}.
+         * @throws IllegalArgumentException se {@code username} è {@code blank}.
          */
-        public UserBuilder username(String username) {
+        public UserBuilder username(String username) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(username, "Username null.").isBlank())
+                throw new IllegalArgumentException("Username vuoto.");
             this.username = username;
             return this;
         }
@@ -289,9 +301,10 @@ public class User extends BaseEntity {
          *
          * @param difficulty la difficoltà in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException se {@code difficulty} è {@code null}.
          */
-        public UserBuilder difficulty(Difficulty difficulty) {
-            this.difficulty = difficulty;
+        public UserBuilder difficulty(Difficulty difficulty) throws NullPointerException {
+            this.difficulty = Objects.requireNonNull(difficulty, "Difficoltà null.");
             return this;
         }
 
@@ -300,8 +313,12 @@ public class User extends BaseEntity {
          *
          * @param score lo score in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code score} è {@code null}.
+         * @throws IllegalArgumentException se {@code score} è minore di {@code 0}.
          */
-        public UserBuilder score(Double score) {
+        public UserBuilder score(Double score) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(score, "Score null.") < 0)
+                throw new IllegalArgumentException("Score negativo.");
             this.score = score;
             return this;
         }
@@ -311,8 +328,12 @@ public class User extends BaseEntity {
          *
          * @param id l'id in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code id} è {@code null}.
+         * @throws IllegalArgumentException se{@code id} è minore di {@code 1}.
          */
-        public UserBuilder id(Long id) {
+        public UserBuilder id(Long id) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(id, "Id nullo.") < 1)
+                throw new IllegalArgumentException("Id negativo.");
             this.id = id;
             return this;
         }
