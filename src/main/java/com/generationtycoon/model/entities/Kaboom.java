@@ -292,8 +292,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param question la domanda in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code question} è {@code null}.
+         * @throws IllegalArgumentException se {{@code question} è {@code blank}.
          */
-        public KaboomBuilder question(String question) {
+        public KaboomBuilder question(String question) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(question, "La domanda non può essere null.").isBlank())
+                throw new IllegalArgumentException("La domanda non può essere vuota");
             this.question = question;
             return this;
         }
@@ -303,8 +307,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param answer1 la prima risposta in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code answer1} è {@code null}.
+         * @throws IllegalArgumentException se {@code answer1} è {@code blank}.
          */
-        public KaboomBuilder answer1(String answer1) {
+        public KaboomBuilder answer1(String answer1) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(answer1, "Risposta non può essere null.").isBlank())
+                throw new IllegalArgumentException("La risposta uno non può essere vuota");
             this.answer1 = answer1;
             return this;
         }
@@ -314,8 +322,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param answer2 la seconda risposta in ingresso.
          * @return {@code this}.
+         * @throws IllegalArgumentException se {@code answer2} è {@code blank}.
+         * @throws NullPointerException     se {@code answer2} è {@code null}.
          */
-        public KaboomBuilder answer2(String answer2) {
+        public KaboomBuilder answer2(String answer2) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(answer2, "Risposta non può essere null.").isBlank())
+                throw new IllegalArgumentException("La risposta due non può essere vuota");
             this.answer2 = answer2;
             return this;
         }
@@ -325,8 +337,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param answer3 la terza risposta in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code answer3} è {@code null}.
+         * @throws IllegalArgumentException se {@code answer3} è {@code blank}.
          */
-        public KaboomBuilder answer3(String answer3) {
+        public KaboomBuilder answer3(String answer3) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(answer3, "Risposta non può essere null.").isBlank())
+                throw new IllegalArgumentException("La risposta tre non può essere vuota");
             this.answer3 = answer3;
             return this;
         }
@@ -336,8 +352,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param answer4 la quarta risposta in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code answer4} è {@code null}.
+         * @throws IllegalArgumentException se {@code answer4} è {@code blank}.
          */
-        public KaboomBuilder answer4(String answer4) {
+        public KaboomBuilder answer4(String answer4) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(answer4, "Risposta non può essere null.").isBlank())
+                throw new IllegalArgumentException("La risposta quattro non può essere vuota");
             this.answer4 = answer4;
             return this;
         }
@@ -347,9 +367,10 @@ public class Kaboom extends BaseEntity {
          *
          * @param correctColor il colore in ingresso.
          * @return {@code this.}
+         * @throws NullPointerException se {@code correctColor} è {@code null}.
          */
-        public KaboomBuilder correctColor(KaboomColors correctColor) {
-            this.correctColor = correctColor;
+        public KaboomBuilder correctColor(KaboomColors correctColor) throws NullPointerException {
+            this.correctColor = Objects.requireNonNull(correctColor, "Impossibile impostare il colore come null.");
             return this;
         }
 
@@ -358,8 +379,12 @@ public class Kaboom extends BaseEntity {
          *
          * @param id l'id in ingresso.
          * @return {@code this}.
+         * @throws NullPointerException     se {@code id} è {@code null}.
+         * @throws IllegalArgumentException se{@code id} è minore di {@code 1}.
          */
-        public KaboomBuilder id(Long id) {
+        public KaboomBuilder id(Long id) throws NullPointerException, IllegalArgumentException {
+            if (Objects.requireNonNull(id, "Id nullo.") < 1)
+                throw new IllegalArgumentException("Id negativo.");
             this.id = id;
             return this;
         }
