@@ -12,87 +12,90 @@ import com.generationtycoon.model.repositories.BrainjRepository;
 import com.generationtycoon.model.repositories.KaboomRepository;
 import com.generationtycoon.model.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ControllerHelperImpl implements ControllerHelper
-{
+@Service
+public class ControllerHelperImpl implements ControllerHelper {
 
-	BrainjRepository bRepo;
+    private final BrainjRepository bRepo;
 
-	KaboomRepository kRepo;
+    private final KaboomRepository kRepo;
 
-	UserRepository uRepo;
+    private final UserRepository uRepo;
 
-	DtoConverter converter;
+    private final DtoConverter converter;
 
-	@Override
-	public List<KaboomRespDto> getAllKabooms()
-	{
-		return kRepo.findAll().stream().map(kaboom -> converter.toKaboomRespDto(kaboom)).toList();
-	}
+    public ControllerHelperImpl(@Autowired BrainjRepository bRepo,
+                                @Autowired KaboomRepository kRepo,
+                                @Autowired UserRepository uRepo,
+                                @Autowired DtoConverter converter) {
+        this.bRepo = bRepo;
+        this.kRepo = kRepo;
+        this.uRepo = uRepo;
+        this.converter = converter;
+    }
 
-	@Override
-	public KaboomRespDto getKaboomById(Long id)
-	{
-		Optional<Kaboom> kaboom = kRepo.findById(id);
+    @Override
+    public List<KaboomRespDto> getAllKabooms() {
+        return kRepo.findAll().stream().map(kaboom -> converter.toKaboomRespDto(kaboom)).toList();
+    }
 
-		if(kaboom.isEmpty())
-			throw new KaboomMissingException("Kaboom non presente");
+    @Override
+    public KaboomRespDto getKaboomById(Long id) {
+        Optional<Kaboom> kaboom = kRepo.findById(id);
 
-		return converter.toKaboomRespDto(kaboom.get());
-	}
+        if (kaboom.isEmpty())
+            throw new KaboomMissingException("Kaboom non presente");
 
-	@Override
-	public List<UserLeaderboardRespDto> getAllUsersOnTheLeaderboard()
-	{
-		return uRepo.findAll().stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
-	}
+        return converter.toKaboomRespDto(kaboom.get());
+    }
 
-	@Override
-	public UserLoginRespDto getUserById(Long id)
-	{
-		Optional<User> user = uRepo.findById(id);
+    @Override
+    public List<UserLeaderboardRespDto> getAllUsersOnTheLeaderboard() {
+        return uRepo.findAll().stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
+    }
 
-		if(user.isEmpty())
-			throw new UserMissingException("User non presente");
+    @Override
+    public UserLoginRespDto getUserById(Long id) {
+        Optional<User> user = uRepo.findById(id);
 
-		return converter.toUserLoginRespDto(user.get());
-	}
+        if (user.isEmpty())
+            throw new UserMissingException("User non presente");
 
-	@Override
-	public List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty)
-	{
-		return uRepo.findByDifficulty(difficulty).stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
-	}
+        return converter.toUserLoginRespDto(user.get());
+    }
+
+    @Override
+    public List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty) {
+        return uRepo.findByDifficulty(difficulty).stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
+    }
 
 
-	@Override
-	public void deleteUser(Long id)
-	{
-		Optional<User> user = uRepo.findById(id);
+    @Override
+    public void deleteUser(Long id) {
+        Optional<User> user = uRepo.findById(id);
 
-		if(user.isEmpty())
-			throw new UserMissingException("User non presente");
+        if (user.isEmpty())
+            throw new UserMissingException("User non presente");
 
-		uRepo.deleteById(id);
-	}
+        uRepo.deleteById(id);
+    }
 
-	@Override
-	public List<BrainjRespDto> getAllBrainjs()
-	{
-		return bRepo.findAll().stream().map(brainj -> converter.toBrainjRespDto(brainj)).toList();
-	}
+    @Override
+    public List<BrainjRespDto> getAllBrainjs() {
+        return bRepo.findAll().stream().map(brainj -> converter.toBrainjRespDto(brainj)).toList();
+    }
 
-	@Override
-	public BrainjRespDto getBrainjById(Long id)
-	{
-		Optional<Brainj> brainj = bRepo.findById(id);
+    @Override
+    public BrainjRespDto getBrainjById(Long id) {
+        Optional<Brainj> brainj = bRepo.findById(id);
 
-		if(brainj.isEmpty())
-			throw new BrainjMissingException("Brainj non presente");
+        if (brainj.isEmpty())
+            throw new BrainjMissingException("Brainj non presente");
 
-		return converter.toBrainjRespDto(brainj.get());
-	}
+        return converter.toBrainjRespDto(brainj.get());
+    }
 }
