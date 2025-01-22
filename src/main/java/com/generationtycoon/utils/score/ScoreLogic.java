@@ -26,6 +26,7 @@ public class ScoreLogic {
         if (start == null || end == null || start.isAfter(end)) return null;
         Difficulty difficulty = dto.difficulty();
         if (difficulty == null) return null;
+        if (dto.hp() <= 0) return null;
         double diff = 1000 - ChronoUnit.MINUTES.between(start, end);
         double score = diff * difficulty.multiplier;
         switch (difficulty) {

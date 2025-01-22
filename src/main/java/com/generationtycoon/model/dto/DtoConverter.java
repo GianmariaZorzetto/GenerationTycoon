@@ -26,11 +26,6 @@ public class DtoConverter {
                 .build();
     }
 
-    public UserLoginRespDto toUserLoginRespDto(User user) {
-        //TODO genera token
-        return null;
-    }
-
     /**
      * Metodo che converte un {@link UserRegistrationReqDto} in un {@link User}.
      *
@@ -91,10 +86,22 @@ public class DtoConverter {
                 .build();
     }
 
+    /**
+     * Metodo che converte un {@link UserUpdateScoreReqDto} in un {@link User}.
+     *
+     * @param dto il dto in ingresso.
+     * @return uno {@code User} con le proprietà impostate.
+     */
     public User toUser(UserUpdateScoreReqDto dto) {
         return User.builder().id(dto.id()).score(dto.score()).build();
     }
 
+    /**
+     * Metodo che converte {@link Brainj} in un {@link BrainjRespDto}.
+     *
+     * @param brainj il {@code Brainj} in ingresso.
+     * @return uno {@code BrainjRespDto} con le proprietà impostate.
+     */
     public BrainjRespDto toBrainjRespDto(Brainj brainj) {
         return BrainjRespDto.builder().question(brainj.getQuestion()).answer(brainj.getAnswer()).build();
     }
