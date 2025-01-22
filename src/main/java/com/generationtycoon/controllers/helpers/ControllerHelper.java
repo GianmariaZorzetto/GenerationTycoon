@@ -1,9 +1,6 @@
 package com.generationtycoon.controllers.helpers;
 
-import com.generationtycoon.model.dto.KaboomRespDto;
-import com.generationtycoon.model.dto.UserLeaderboardReqDto;
-import com.generationtycoon.model.dto.UserLeaderboardRespDto;
-import com.generationtycoon.model.dto.UserLoginRespDto;
+import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Difficulty;
 
 import java.util.List;
@@ -27,4 +24,8 @@ public interface ControllerHelper {
     UserLeaderboardRespDto modifyUserInLeaderboard(Long id, UserLeaderboardReqDto dtoUser);
 
     void deleteUser(Long id);
+
+    List<BrainjRespDto> getAllBrainjs();
+
+    BrainjRespDto getBrainjById(Long id);
 }
