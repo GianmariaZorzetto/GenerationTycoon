@@ -17,17 +17,40 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementazione di {@link ControllerHelper}.
+ */
 @Service
 public class ControllerHelperImpl implements ControllerHelper {
 
+    /**
+     * Repository dei {@link Brainj}.
+     */
     private final BrainjRepository bRepo;
 
+    /**
+     * Repository dei {@link Kaboom}.
+     */
     private final KaboomRepository kRepo;
 
+    /**
+     * Repository dei {@link User}.
+     */
     private final UserRepository uRepo;
 
+    /**
+     * Converter dei dto.
+     */
     private final DtoConverter converter;
 
+    /**
+     * Costruttore.
+     *
+     * @param bRepo     autowired da springboot.
+     * @param kRepo     autowired da springboot.
+     * @param uRepo     autowired da springboot.
+     * @param converter autowired da springboot.
+     */
     public ControllerHelperImpl(@Autowired BrainjRepository bRepo,
                                 @Autowired KaboomRepository kRepo,
                                 @Autowired UserRepository uRepo,
@@ -56,16 +79,6 @@ public class ControllerHelperImpl implements ControllerHelper {
     @Override
     public List<UserLeaderboardRespDto> getAllUsersOnTheLeaderboard() {
         return uRepo.findAll().stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
-    }
-
-    @Override
-    public UserLoginRespDto getUserById(Long id) {
-        Optional<User> user = uRepo.findById(id);
-
-        if (user.isEmpty())
-            throw new UserMissingException("User non presente");
-
-        return converter.toUserLoginRespDto(user.get());
     }
 
     @Override

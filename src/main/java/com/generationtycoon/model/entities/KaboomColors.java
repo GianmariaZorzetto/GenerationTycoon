@@ -13,9 +13,21 @@ import org.springframework.lang.Nullable;
  * </ul>
  */
 public enum KaboomColors {
+    /**
+     * Colore rosso.
+     */
     RED,
+    /**
+     * Colore blu.
+     */
     BLUE,
+    /**
+     * Colore verde.
+     */
     GREEN,
+    /**
+     * Colore giallo.
+     */
     YELLOW,
     ;
 
