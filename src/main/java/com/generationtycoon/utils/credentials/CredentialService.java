@@ -21,16 +21,38 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.StringJoiner;
 
+/**
+ * Classe di servizio per la gestione delle credenziali.
+ */
 @Service
 public class CredentialService {
+    /**
+     * Costante utilizzata per la creazione del token di uno user.
+     */
+    private final static String CONNECTOR = "-";
+
+    /**
+     * Repository degli user.
+     */
     private final UserRepository userRepo;
 
+    /**
+     * Costruttore della classe.
+     *
+     * @param userRepo autowired da springboot.
+     */
     public CredentialService(@Autowired UserRepository userRepo) {
         this.userRepo = userRepo;
     }
 
+    /**
+     * Metodo che genera un token a partire dall'email di uno user.
+     *
+     * @param email l'email in ingresso.
+     * @return il token generato.
+     */
     private String generateToken(String email) {
-        StringJoiner sj = new StringJoiner("-");
+        StringJoiner sj = new StringJoiner(CONNECTOR);
         int offset = new Random().nextInt(20);
         sj.add(String.valueOf(offset));
         for (char c : email.toCharArray())
@@ -38,8 +60,14 @@ public class CredentialService {
         return sj.toString();
     }
 
+    /**
+     * Metodo che converte un token a una email.
+     *
+     * @param token il token da convertire.
+     * @return l'email riconvertita.
+     */
     private String convertToken(String token) {
-        String[] parts = token.split("-");
+        String[] parts = token.split(CONNECTOR);
         StringBuilder t = new StringBuilder();
         int offset = Integer.parseInt(parts[0]);
         Arrays.stream(parts).skip(1).forEach(part -> {
@@ -49,6 +77,15 @@ public class CredentialService {
         return t.toString();
     }
 
+    /**
+     * Metodo che effettua il login di uno user.
+     *
+     * @param dto la richiesta di login da parte del client.
+     * @return la risposta alla richiesta.
+     * @throws NullPointerException     se {@code dto} è {@code null}.
+     * @throws InvalidEmailException    se lo user non esiste.
+     * @throws InvalidPasswordException se la password non coincide con la password dello user.
+     */
     public UserLoginRespDto login(UserLoginReqDto dto)
             throws NullPointerException, InvalidEmailException, InvalidPasswordException {
         User user = userRepo
@@ -60,6 +97,15 @@ public class CredentialService {
         return new UserLoginRespDto(generateToken(user.getEmail()));
     }
 
+    /**
+     * Metodo che registra uno user nel database.
+     *
+     * @param dto la richiesta dal client.
+     * @return uno {@link User}.
+     * @throws NullPointerException     se {@code dto} è {@code null}.
+     * @throws InvalidPasswordException se la password nom è valida.
+     * @throws IllegalArgumentException se l'email non è valida.
+     */
     public User register(UserRegistrationReqDto dto)
             throws NullPointerException, InvalidPasswordException, IllegalArgumentException {
         String psw = Objects.requireNonNull(dto, "Dto null").password();
@@ -77,6 +123,14 @@ public class CredentialService {
         );
     }
 
+    /**
+     * Metodo che trova uno user dato il suo token.
+     *
+     * @return lo user nel database.
+     * @throws NullPointerException  se la richiesta è {@code null}.
+     * @throws InvalidTokenException se il token allegato non è stato allegato.
+     * @throws UserMissingException  se non esiste nessun user con quel token associato.
+     */
     public User getUserByToken() throws NullPointerException, InvalidTokenException, UserMissingException {
         ServletRequestAttributes req = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String tokenReq =
