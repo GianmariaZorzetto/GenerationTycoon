@@ -1,5 +1,6 @@
 package com.generationtycoon.model.dto;
 
+import com.generationtycoon.model.entities.Brainj;
 import com.generationtycoon.model.entities.Kaboom;
 import com.generationtycoon.model.entities.User;
 import org.springframework.stereotype.Service;
@@ -92,5 +93,9 @@ public class DtoConverter {
 
     public User toUser(UserUpdateScoreReqDto dto) {
         return User.builder().id(dto.id()).score(dto.score()).build();
+    }
+
+    public BrainjRespDto toBrainjRespDto(Brainj brainj) {
+        return BrainjRespDto.builder().question(brainj.getQuestion()).answer(brainj.getAnswer()).build();
     }
 }
