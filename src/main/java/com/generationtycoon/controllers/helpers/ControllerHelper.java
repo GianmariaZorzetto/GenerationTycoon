@@ -21,8 +21,6 @@ public interface ControllerHelper {
 
     List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty);
 
-    UserLeaderboardRespDto modifyUserInLeaderboard(Long id, UserLeaderboardReqDto dtoUser);
-
     void deleteUser(Long id);
 
     List<BrainjRespDto> getAllBrainjs();
