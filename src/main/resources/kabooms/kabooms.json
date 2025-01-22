@@ -1,0 +1,258 @@
+[
+  {
+    "question": "Quale delle seguenti affermazioni sulle eccezioni in Java è corretta?",
+    "answer1": "Una eccezione Error può essere catturata in un blocco catch.",
+    "answer2": "È obbligatorio dichiarare tutte le eccezioni nel metodo con throws.",
+    "answer3": "Un catch per RuntimeException cattura anche le checked exceptions.",
+    "answer4": "Una eccezione lanciata in un costruttore deve essere gestita immediatamente.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni sull'aliasing in SQL è corretta?",
+    "answer1": "Gli alias definiti nella SELECT possono essere usati nella WHERE.",
+    "answer2": "Gli alias definiti nella SELECT possono essere usati nella GROUP BY.",
+    "answer3": "Gli alias definiti nella SELECT possono essere usati nella ORDER BY.",
+    "answer4": "Gli alias definiti nella SELECT devono essere univoci nella query.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni su List in Java è corretta?",
+    "answer1": "Gli elementi di una List devono essere unici.",
+    "answer2": "La dimensione di una List è fissa dopo l'inizializzazione.",
+    "answer3": "Una List non può contenere elementi null.",
+    "answer4": "Gli elementi di una List sono ordinati secondo l'ordine di inserimento.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni su HashMap in Java è corretta?",
+    "answer1": "La complessità dell'operazione get() in una HashMap è sempre O(1).",
+    "answer2": "L'ordine di iterazione di una HashMap è imprevedibile ma deterministico.",
+    "answer3": "Due chiavi in una HashMap possono avere lo stesso hash code.",
+    "answer4": "Una HashMap può avere una sola chiave null, ma più valori null.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni sul poliformismo è corretta?",
+    "answer1": "Il polimorfismo permette a un oggetto di assumere più di un tipo.",
+    "answer2": "Il polimorfismo permette solo l'overloading dei metodi.",
+    "answer3": "Il polimorfismo è un concetto esclusivo dell'ereditarietà.",
+    "answer4": "Il polimorfismo significa che una classe può avere più di un costruttore.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Qual è il risultato di confrontare due oggetti String con == in Java?",
+    "answer1": "Confronta il contenuto delle stringhe.",
+    "answer2": "Restituisce sempre true per stringhe con lo stesso contenuto.",
+    "answer3": "Confronta i riferimenti degli oggetti.",
+    "answer4": "Lancia un errore se una delle stringhe è null.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Cosa succede se in Java dichiari una variabile int ma non le assegni alcun valore prima di utilizzarla?",
+    "answer1": "Viene inizializzata automaticamente a 0.",
+    "answer2": "Lancia un errore di compilazione.",
+    "answer3": "Viene inizializzata automaticamente a null.",
+    "answer4": "Lancia un'eccezione a runtime.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Cos'è Angular?",
+    "answer1": "Un framework frontend per costruire ponti sospesi.",
+    "answer2": "Un framework JavaScript per applicazioni web.",
+    "answer3": "Un sistema operativo per server.",
+    "answer4": "Un framework TypeScript per applicazioni web.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Angular è usato per...?",
+    "answer1": "Sviluppare API REST scalabili per il backend.",
+    "answer2": "Creare interfacce web dinamice usando componenti.",
+    "answer3": "Gestire il DOM in modo performante con JavaScript.",
+    "answer4": "Gestire il DOM in modo performante con JavaScript.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Cos'è il property binding in Angular?",
+    "answer1": "Una tecnica per legare una proprietà del modello a un attributo del DOM.",
+    "answer2": "Un metodo per gestire eventi utente come click o input.",
+    "answer3": "Una funzionalità per collegare due componenti tramite un servizio.",
+    "answer4": "Una funzionalità per collegare due componenti tramite un servizio.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni sulle direttive ngClass e ngStyle è corretta?",
+    "answer1": "ngClass gestisce classi, ngStyle applica stili inline.",
+    "answer2": "ngClass gestisce classi CSS, ngStyle applica stili inline.",
+    "answer3": "ngClass assegna stili inline, ngStyle modifica classi CSS.",
+    "answer4": "ngClass gestisce classi, ngStyle applica stili.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale comando Angular crea un nuovo componente?",
+    "answer1": "ng add component",
+    "answer2": "ng new component",
+    "answer3": "ng create component",
+    "answer4": "ng generate component",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Cos'è una proxy?",
+    "answer1": "Un wrapper per rendere asincrona una funzione.",
+    "answer2": "Una funzione che intercetta solo le richieste HTTP.",
+    "answer3": "Un design pattern.",
+    "answer4": "Un metodo per clonare oggetti complessi in memoria.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Thymeleaf può essere usato per fare cosa in una web app Java?",
+    "answer1": "Generare markup HTML lato server.",
+    "answer2": "Implementare la logica del controller.",
+    "answer3": "Gestire autenticazione utenti.",
+    "answer4": "Configurare servlet e filtri.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Cosa fa l'attributo th:each in Thymeleaf?",
+    "answer1": "Imposta un attributo condizionale su un elemento HTML.",
+    "answer2": "Esegue un ciclo su una lista per popolare elementi HTML.",
+    "answer3": "Esegue una logica condizionale simile a if.",
+    "answer4": "Invia dati al server usando una chiamata AJAX.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale affermazione è vera riguardo i Generics in Java?",
+    "answer1": "È possibile creare un’istanza di un tipo generico con new T().",
+    "answer2": "I Generics possono essere utilizzati solo con classi definite dall’utente.",
+    "answer3": "I Generics consentono la creazione di classi e metodi riutilizzabili.",
+    "answer4": "I Generics mantengono il tipo durante l’esecuzione del programma.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Cosa accade se un metodo void contiene un return senza valore?",
+    "answer1": "Non compila perché un metodo void non può avere return.",
+    "answer2": "Compila solo se il return si trova nell'ultimo blocco di codice.",
+    "answer3": "Compila e permette di terminare il metodo in quel punto specifico.",
+    "answer4": "Non compila perché un return in un metodo void è sempre ambiguo.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Cosa accade se un metodo ha un return dentro un if?",
+    "answer1": "Compila, ma il compilatore avverte che alcuni percorsi non terminano.",
+    "answer2": "Non compila perché il metodo potrebbe non restituire un valore.",
+    "answer3": "Compila, ma solo se ogni possibile percorso termina con un return.",
+    "answer4": "Compila anche se il return non è raggiunto in tutti i casi.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale metodo viene utilizzato per stabilire una connessione a un databse?",
+    "answer1": "Database.connect()",
+    "answer2": "DriverManager.getConnection()",
+    "answer3": "DbHelper.create()",
+    "answer4": "ResultSet.connect()",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Cos'è un DBMS (Database Management System)?",
+    "answer1": "Un linguaggio di programmazione per manipolare i database.",
+    "answer2": "Un linguaggio di programmazione per manipolare i database.",
+    "answer3": "Una macchina virtuale.",
+    "answer4": "Un software per gestire database, creare, modificare e interrogare dati.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Quale comando SQL viene utilizzato per selezionare dati da una tabella?",
+    "answer1": "SELECT",
+    "answer2": "GET",
+    "answer3": "EXTRACT",
+    "answer4": "CHOOSE",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Cos'è un in un database relazionale?",
+    "answer1": "Un insieme di colonne che rappresentano un singolo elemento.",
+    "answer2": "Un insieme di righe che rappresentano una singola colonna.",
+    "answer3": "Una riga in una tabella, contenente informazioni per un singolo elemento.",
+    "answer4": "Un valore unico memorizzato nel database.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Quale affermazione è incorretta riguardo Hibernate?",
+    "answer1": "Hibernate mappa gli oggetti Java alle tabelle del database.",
+    "answer2": "Hibernate elimina la necessità di configurare la Session Factory.",
+    "answer3": "Hibernate utilizza annotazioni per semplificare il mapping.",
+    "answer4": "Hibernate consente operazioni CRUD tramite sessioni.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale ruolo svolgono le annotazione in Hibernate?",
+    "answer1": "Permettono la configurazione del mapping direttamente nel codice Java.",
+    "answer2": "Forniscono metodi runtime per ottimizzare le query SQL manuali.",
+    "answer3": "Gestiscono le connessioni al database senza configurazioni aggiuntive.",
+    "answer4": "Sono richieste solo per l’implementazione di operazioni CRUD avanzate.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Cosa accade se una chiave null viene immessa in una HashMap?",
+    "answer1": "La chiave viene memorizzata come ultima posizione nella mappa.",
+    "answer2": "La chiave viene memorizzata in un separato riservato alle chiavi duplicate.",
+    "answer3": "La chiave viene memorizzata come prima posizione nella mappa.",
+    "answer4": "La chiave viene memorizzata in una posizione casuale determinata.",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni sugli oggetti in Java è vera?",
+    "answer1": "Gli oggetti sono passati come copie nelle funzioni, mai come riferimenti.",
+    "answer2": "Gli oggetti sono passati come nelle funzioni, mai come riferimenti.",
+    "answer3": "Assegnare un oggetto a un altro non copia solo il riferimento, i dati.",
+    "answer4": "Assegnare un oggetto a un altro copia solo il riferimento, non i dati.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni descrive una variabile?",
+    "answer1": "È un valore fisso che non può essere cambiato.",
+    "answer2": "È un contenitore per un valore che può variare.",
+    "answer3": "È un tipo di dato solo per i numeri.",
+    "answer4": "È una funzione che restituisce sempre lo stesso valore.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni sugli array in Java è corretta?",
+    "answer1": "La lunghezza di un array è modificabile durante l'esecuzione.",
+    "answer2": "Gli elementi di un array di tipo boolean sono inizializzati a true.",
+    "answer3": "Gli array in Java possono contenere valori di diversi tipi di dati.",
+    "answer4": "L'ultima posizione è uguale ad array.length-1;.",
+    "correctColor": "YELLOW"
+  },
+  {
+    "question": "Qual è la differenza tra programmazione ad alto livello e basso livello?",
+    "answer1": "La programmazione ad alto livello è più vicina al linguaggio umano.",
+    "answer2": "La programmazione a basso livello richiede meno risorse di sistema.",
+    "answer3": "La programmazione ad alto livello è più veloce di quella a basso livello.",
+    "answer4": "La programmazione a basso livello richiede meno risorse umane.",
+    "correctColor": "RED"
+  },
+  {
+    "question": "Cosa significa OOP?",
+    "answer1": "Open Object Programming",
+    "answer2": "Objective Output Protocol",
+    "answer3": "Object-Oriented Programming",
+    "answer4": "Object-Oriented Program",
+    "correctColor": "GREEN"
+  },
+  {
+    "question": "Cosa fa un ciclo while in Java?",
+    "answer1": "Esegue il blocco di codice indipendentemente dalla condizione.",
+    "answer2": "Esegue il blocco di codice finché la condizione è vera.",
+    "answer3": "Esegue il blocco di codice un numero fisso di volte.",
+    "answer4": "Esegue il blocco di codice finché la condizione è falsa.",
+    "correctColor": "BLUE"
+  },
+  {
+    "question": "Quale delle seguenti affermazioni su un'istruzione if in java è vera?",
+    "answer1": "Un'istruzione if può essere seguita da più else if.",
+    "answer2": "Un'istruzione if deve sempre avere un else.",
+    "answer3": "Un else può precedere un if.",
+    "answer4": "Non puoi annidare istruzioni if.",
+    "correctColor": "RED"
+  }
+]
