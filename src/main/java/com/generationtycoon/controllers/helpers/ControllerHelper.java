@@ -1,6 +1,9 @@
 package com.generationtycoon.controllers.helpers;
 
-import com.generationtycoon.model.dto.*;
+import com.generationtycoon.model.dto.KaboomRespDto;
+import com.generationtycoon.model.dto.UserLeaderboardReqDto;
+import com.generationtycoon.model.dto.UserLeaderboardRespDto;
+import com.generationtycoon.model.dto.UserLoginRespDto;
 import com.generationtycoon.model.entities.Difficulty;
 
 import java.util.List;
@@ -11,17 +14,17 @@ import java.util.List;
 public interface ControllerHelper {
     // TODO implementare i metodi non appena abbiamo fatto i DTO
 
-	List<KaboomRespDto> getAllKabooms();
+    List<KaboomRespDto> getAllKabooms();
 
-	KaboomRespDto getKaboomById(long id);
+    KaboomRespDto getKaboomById(Long id);
 
-	List<UserLeaderboardRespDto> getAllUsersOnTheLeaderboard();
+    List<UserLeaderboardRespDto> getAllUsersOnTheLeaderboard();
 
-	UserLoginRespDto getUserById(long id);
+    UserLoginRespDto getUserById(Long id);
 
-	List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty);
+    List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty);
 
-	UserLeaderboardRespDto modifyUserInLeaderboard(long id, UserLeaderboardReqDto dtoUser);
+    UserLeaderboardRespDto modifyUserInLeaderboard(Long id, UserLeaderboardReqDto dtoUser);
 
-	void deleteUser(long id);
+    void deleteUser(Long id);
 }
