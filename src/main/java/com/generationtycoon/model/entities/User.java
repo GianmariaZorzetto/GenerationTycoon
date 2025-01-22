@@ -1,5 +1,7 @@
 package com.generationtycoon.model.entities;
 
+import com.generationtycoon.controllers.exceptions.InvalidEmailException;
+import com.generationtycoon.controllers.exceptions.InvalidUsernameException;
 import com.generationtycoon.utils.validator.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +30,7 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;
     /**
-     * Password dello {@code User}: deve essere non {@code null} e non vuota e aderire alla regex detta nel {@link Validator}.
+     * Password dello {@code User}: deve essere non {@code null} e già hashata.
      */
     @Column(nullable = false)
     private String password;
@@ -77,7 +79,7 @@ public class User extends BaseEntity {
     private User(String email, String password, String username, Difficulty difficulty, Double score) {
         super();
         this.email = email;
-        this.password = DigestUtils.md5Hex(password);
+        this.password = password;
         this.username = username;
         this.difficulty = difficulty;
         this.score = score;
@@ -88,7 +90,7 @@ public class User extends BaseEntity {
      *
      * @param id         l'id dello {@code User}.
      * @param email      l'email dello {@code User}.
-     * @param password   la password dello {@code User}, in chiaro.
+     * @param password   la password dello {@code User}.
      * @param username   lo username dello {@code User}.
      * @param difficulty la difficoltà dello {@code User}.
      * @param score      lo score dello {@code User}.
@@ -99,7 +101,7 @@ public class User extends BaseEntity {
             throws IllegalArgumentException, NullPointerException {
         super(id);
         this.email = email;
-        this.password = DigestUtils.md5Hex(password);
+        this.password = password;
         this.username = username;
         this.difficulty = difficulty;
         this.score = score;
@@ -118,11 +120,11 @@ public class User extends BaseEntity {
      * Setter dell'email.
      *
      * @param email l'email da impostare.
-     * @throws IllegalArgumentException se {@code email} non è conforme.
+     * @throws InvalidEmailException se {@code email} non è conforme.
      */
-    public void setEmail(String email) throws IllegalArgumentException {
+    public void setEmail(String email) throws InvalidEmailException {
         if (!Validator.EMAIL.validate(email))
-            throw new IllegalArgumentException("Email non conforme.");
+            throw new InvalidEmailException("Email non conforme.");
         this.email = email;
     }
 
@@ -161,12 +163,12 @@ public class User extends BaseEntity {
      * Setter di {@code username}.
      *
      * @param username il nuovo username dello {@code User}.
-     * @throws IllegalArgumentException se {@code username} è blank.
+     * @throws InvalidUsernameException se {@code username} è blank.
      * @throws NullPointerException     se {@code username} è {@code null}.
      */
-    public void setUsername(String username) throws IllegalArgumentException, NullPointerException {
+    public void setUsername(String username) throws InvalidUsernameException, NullPointerException {
         if (Objects.requireNonNull(username, "Username non può essere null.").isBlank())
-            throw new IllegalArgumentException("Username non può essere vuoto.");
+            throw new InvalidUsernameException("Username non può essere vuoto.");
         this.username = username;
     }
 
@@ -258,11 +260,11 @@ public class User extends BaseEntity {
          *
          * @param email l'email in ingresso.
          * @return {@code this}.
-         * @throws IllegalArgumentException se {@code email} non è valida.
+         * @throws InvalidEmailException se {@code email} non è valida.
          */
-        public UserBuilder email(String email) throws IllegalArgumentException {
+        public UserBuilder email(String email) throws InvalidEmailException {
             if (!Validator.EMAIL.validate(email))
-                throw new IllegalArgumentException("Email non conforme.");
+                throw new InvalidEmailException("Email non conforme.");
             this.email = email;
             return this;
         }
@@ -288,11 +290,11 @@ public class User extends BaseEntity {
          * @param username lo username in ingresso.
          * @return {@code this}.
          * @throws NullPointerException     se {@code username} è {@code null}.
-         * @throws IllegalArgumentException se {@code username} è {@code blank}.
+         * @throws InvalidUsernameException se {@code username} è {@code blank}.
          */
-        public UserBuilder username(String username) throws NullPointerException, IllegalArgumentException {
+        public UserBuilder username(String username) throws NullPointerException, InvalidUsernameException {
             if (Objects.requireNonNull(username, "Username null.").isBlank())
-                throw new IllegalArgumentException("Username vuoto.");
+                throw new InvalidUsernameException("Username vuoto.");
             this.username = username;
             return this;
         }

@@ -104,10 +104,10 @@ public class CredentialService {
      * @return uno {@link User}.
      * @throws NullPointerException     se {@code dto} è {@code null}.
      * @throws InvalidPasswordException se la password nom è valida.
-     * @throws IllegalArgumentException se l'email non è valida.
+     * @throws InvalidEmailException se l'email non è valida.
      */
     public User register(UserRegistrationReqDto dto)
-            throws NullPointerException, InvalidPasswordException, IllegalArgumentException {
+            throws NullPointerException, InvalidPasswordException, InvalidEmailException {
         String psw = Objects.requireNonNull(dto, "Dto null").password();
         if (!Validator.PASSWORD.validate(psw))
             throw new InvalidPasswordException("Password non corretta.");
