@@ -90,4 +90,7 @@ public class DtoConverter {
                 .build();
     }
 
+    public User toUser(UserUpdateScoreReqDto dto) {
+        return User.builder().id(dto.id()).score(dto.score()).build();
+    }
 }
