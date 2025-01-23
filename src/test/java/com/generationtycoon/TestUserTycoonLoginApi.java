@@ -140,4 +140,24 @@ public class TestUserTycoonLoginApi {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    void testUserFailPassword()
+    {
+        try {
+            UserLoginReqDto dto =
+                    UserLoginReqDto.builder()
+                            .email("coolguy92@example.com")
+                            .password("P@ssw0rd123!")
+                            .build();
+            mock.perform(post("/api/users/login")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(mapper.writeValueAsString(dto)))
+                    .andExpect(status().isNotAcceptable());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
