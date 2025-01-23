@@ -83,6 +83,7 @@ public class ControllerHelperImpl implements ControllerHelper {
 
     @Override
     public List<UserLeaderboardRespDto> getUsersByDifficulty(Difficulty difficulty) {
+        if (difficulty == null) return List.of();
         return uRepo.findByDifficulty(difficulty).stream().map(user -> converter.toUserLeaderboardRespDto(user)).toList();
     }
 
@@ -110,5 +111,14 @@ public class ControllerHelperImpl implements ControllerHelper {
             throw new BrainjMissingException("Brainj non presente");
 
         return converter.toBrainjRespDto(brainj.get());
+    }
+
+    @Override
+    public User updateUser(User user) {
+        User userDb = uRepo.findById(user.getId())
+                .orElseThrow(() -> new UserMissingException("Impossibile aggiornare utente non presente."));
+        userDb.setScore(user.getScore());
+        userDb.setDifficulty(user.getDifficulty());
+        return uRepo.save(userDb);
     }
 }
