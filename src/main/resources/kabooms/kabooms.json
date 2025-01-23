@@ -254,5 +254,195 @@
     "answer3": "Un else può precedere un if.",
     "answer4": "Non puoi annidare istruzioni if.",
     "correctColor": "RED"
+  },
+
+  {
+    "question": "Qual è la definizione di empatia?",
+    "answer1": "Imporre le proprie idee agli altri.",
+    "answer2": "Ignorare i sentimenti degli altri.",
+    "answer3": "Rispondere sempre in modo razionale.",
+    "answer4": "Comprendere le emozioni e i punti di vista altrui.",
+    "correctColor": "YELLOW"
+  },
+
+  {
+    "question": "Quale tra questi è un esempio di comunicazione efficace?",
+    "answer1": "Ascoltare attentamente e rispondere con chiarezza.",
+    "answer2": "Parlare senza ascoltare.",
+    "answer3": "Usare un linguaggio non chiaro.",
+    "answer4": "Interrompere costantemente l'interlocutore.",
+    "correctColor": "RED"
+  },
+
+  {
+    "question": "Cosa significa lavorare in team?",
+    "answer1": "Rivalità tra colleghi.",
+    "answer2": "Collaborare e condividere obiettivi comuni.",
+    "answer3": "Lavorare esclusivamente da soli.",
+    "answer4": "Ignorare le opinioni altrui.",
+    "correctColor": "BLUE"
+  },
+
+  {
+    "question": "Cos'è il problem solving?",
+    "answer1": "Evitare i problemi.",
+    "answer2": "Delegare sempre i problemi agli altri.",
+    "answer3": "Trovare soluzioni creative e pratiche ai problemi.",
+    "answer4": "Ignorare le sfide.",
+    "correctColor": "GREEN"
+  },
+
+  {
+    "question": "Qual è un aspetto chiave della gestione del tempo?",
+    "answer1": "Stabilire priorità e pianificare il lavoro.",
+    "answer2": "Concentrarsi su troppe attività contemporaneamente.",
+    "answer3": "Evitare di pianificare.",
+    "answer4": "Procrastinare le attività importanti.",
+    "correctColor": "RED"
+  },
+
+  {
+    "question": "Cosa significa avere un atteggiamento proattivo?",
+    "answer1": "Reagire solo quando necessario.",
+    "answer2": "Anticipare le situazioni e proporre soluzioni.",
+    "answer3": "Lamentarsi dei problemi.",
+    "answer4": "Aspettare che gli altri prendano l'iniziativa.",
+    "correctColor": "BLUE"
+  },
+
+  {
+    "question": "Quale tra questi NON è un esempio di soft skill?",
+    "answer1": "Comunicazione efficace",
+    "answer2": "Empatia",
+    "answer3": "Conoscenza tecnica specifica",
+    "answer4": "Problem solving",
+    "correctColor": "GREEN"
+  },
+
+  {
+    "question": "Cosa si intende per flessibilità?",
+    "answer1": "Resistere al cambiamento.",
+    "answer2": "Adattarsi solo quando obbligati.",
+    "answer3": "Rifiutare nuove idee.",
+    "answer4": "Adattarsi rapidamente ai cambiamenti e alle nuove situazioni.",
+    "correctColor": "YELLOW"
+  },
+
+  {
+    "question": "Cos'è l'intelligenza emotiva?",
+    "answer1": "Riconoscere, comprendere e gestire le emozioni proprie e altrui.",
+    "answer2": "Evitare di riconoscere le proprie emozioni.",
+    "answer3": "Ignorare i sentimenti degli altri.",
+    "answer4": "Manipolare le emozioni altrui.",
+    "correctColor": "RED"
+  },
+
+  {
+    "question": "Come si può migliorare l'ascolto attivo?",
+    "answer1": "Parlando senza interruzione.",
+    "answer2": "Prestando attenzione e mostrando interesse.",
+    "answer3": "Distrarsi con il telefono.",
+    "answer4": "Non mantenendo il contatto visivo.",
+    "correctColor": "BLUE"
+  },
+
+  {
+    "question": "Qual è una buona pratica per scrivere un CV?",
+    "answer1": "Includere informazioni non rilevanti per il lavoro.",
+    "answer2": "Utilizzare un linguaggio poco professionale.",
+    "answer3": "Personalizzare il CV in base al lavoro per cui si sta candidando.",
+    "answer4": "Evitare di aggiornare il CV regolarmente.",
+    "correctColor": "GREEN"
+  },
+
+  {
+    "question": "Quale di questi elementi NON dovrebbe essere incluso in un CV?",
+    "answer1": "Esperienze professionali rilevanti.",
+    "answer2": "Contatti di riferimento.",
+    "answer3": "Un riepilogo delle competenze chiave.",
+    "answer4": "Dati personali sensibili come stato civile o codice fiscale.",
+    "correctColor": "YELLOW"
+  },
+
+  {
+    "question": "Come si può migliorare la capacità di gestione dello stress?",
+    "answer1": "Evitando qualsiasi responsabilità.",
+    "answer2": "Reagendo impulsivamente alle situazioni.",
+    "answer3": "Praticando tecniche di rilassamento e pianificazione.",
+    "answer4": "Soffocando le emozioni senza affrontarle.",
+    "correctColor": "GREEN"
+  },
+
+  {
+    "question": "Cos'è il feedback costruttivo?",
+    "answer1": "Offrire suggerimenti per migliorare in modo chiaro e rispettoso.",
+    "answer2": "Concentrarsi solo sugli errori.",
+    "answer3": "Criticare senza fornire soluzioni.",
+    "answer4": "Ignorare completamente i risultati positivi.",
+    "correctColor": "RED"
+  },
+
+  {
+    "question": "Quale tra questi è un esempio di leadership positiva?",
+    "answer1": "Comandare senza ascoltare il team.",
+    "answer2": "Condividere obiettivi e motivare il team a raggiungerli.",
+    "answer3": "Ignorare i bisogni del gruppo.",
+    "answer4": "Delegare ogni responsabilità senza supervisione.",
+    "correctColor": "BLUE"
+  },
+
+  {
+    "question": "Cosa significa essere responsabili sul lavoro?",
+    "answer1": "Evitare di ammettere i propri errori.",
+    "answer2": "Condividere i successi ma incolpare gli altri per i fallimenti.",
+    "answer3": "Rinviare sempre le decisioni importanti.",
+    "answer4": "Prendersi carico dei propri compiti e delle conseguenze delle proprie azioni.",
+    "correctColor": "YELLOW"
+  },
+
+  {
+    "question": "Qual è il primo passo per risolvere un conflitto sul lavoro?",
+    "answer1": "Ignorare il problema.",
+    "answer2": "Accusare direttamente la controparte.",
+    "answer3": "Parlare con la persona coinvolta in modo rispettoso.",
+    "answer4": "Coinvolgere immediatamente il manager senza tentare di risolverlo da soli.",
+    "correctColor": "GREEN."
+  },
+
+  {
+    "question": "Qual è un segnale di comunicazione non verbale positiva?",
+    "answer1": "Evitare il contatto visivo.",
+    "answer2": "Inclinare leggermente il corpo verso l'interlocutore.",
+    "answer3": "Incrociare le braccia per mostrare autorità.",
+    "answer4": "Guardare costantemente altrove durante una conversazione.",
+    "correctColor": "BLUE"
+  },
+
+  {
+    "question": "Qual è un esempio di resilienza?",
+    "answer1": "Accettare le sfide, imparare dagli errori e continuare a migliorare.",
+    "answer2": "Resistere ai cambiamenti senza adattarsi.",
+    "answer3": "Abbandonare il progetto alla prima difficoltà.",
+    "answer4": "Ignorare il feedback ricevuto per paura di fallire.",
+    "correctColor": "RED"
+  },
+
+  {
+    "question": "Cosa si dovrebbe includere in una lettera di presentazione?",
+    "answer1": "Un elenco dettagliato di tutte le esperienze lavorative passate.",
+    "answer2": "Una copia identica del curriculum.",
+    "answer3": "Un messaggio personalizzato che spieghi perché si è interessati al ruolo e all'azienda.",
+    "answer4": "Solo informazioni personali e nessun riferimento al lavoro specifico.",
+    "correctColor": "GREEN"
+  },
+
+  {
+    "question": "Qual è un buon modo per prepararsi a un colloquio di lavoro?",
+    "answer1": "Evitare di fare ricerche sull'azienda.",
+    "answer2": "Preparare risposte generiche e non personalizzate.",
+    "answer3": "Concentrarsi solo sul proprio curriculum senza pensare alle domande.",
+    "answer4": "Informarsi sull'azienda e preparare esempi concreti delle proprie esperienze.",
+    "correctColor": "BLUE"
   }
+
 ]
