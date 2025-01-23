@@ -34,10 +34,4 @@ public class BrainjController {
         service.getUserByToken();
         return ch.getBrainjById(id);
     }
-
-    @ExceptionHandler(BrainjMissingException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleMissingBrainj(BrainjMissingException ex) {
-        return ex.getMessage();
-    }
 }

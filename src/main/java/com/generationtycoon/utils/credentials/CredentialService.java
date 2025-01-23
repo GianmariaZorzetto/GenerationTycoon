@@ -94,7 +94,11 @@ public class CredentialService {
         String passwordHashed = DigestUtils.md5Hex(dto.password());
         if (!user.getPassword().equals(passwordHashed))
             throw new InvalidPasswordException("Password non corretta.");
-        return new UserLoginRespDto(generateToken(user.getEmail()));
+        return UserLoginRespDto.builder()
+                .token(generateToken(user.getEmail()))
+                .username(user.getUsername())
+                .id(user.getId())
+                .build();
     }
 
     /**

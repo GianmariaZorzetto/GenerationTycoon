@@ -1,5 +1,6 @@
 package com.generationtycoon.controllers;
 
+import com.generationtycoon.controllers.exceptions.InvalidTokenException;
 import com.generationtycoon.controllers.exceptions.KaboomMissingException;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.KaboomRespDto;
@@ -33,11 +34,5 @@ public class KaboomController {
     public KaboomRespDto getOne(@PathVariable Long id) {
         service.getUserByToken();
         return ch.getKaboomById(id);
-    }
-
-    @ExceptionHandler(KaboomMissingException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleKaboomMissingException(KaboomMissingException e) {
-        return e.getMessage();
     }
 }
