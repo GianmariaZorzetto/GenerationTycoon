@@ -5,6 +5,7 @@ import com.generationtycoon.controllers.exceptions.InvalidUsernameException;
 import com.generationtycoon.utils.validator.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Objects;
@@ -23,6 +24,7 @@ import java.util.Objects;
  * </ul>
  */
 @Entity
+@Table(name = "TestUser") // TODO cambiare in produzione
 public class User extends BaseEntity {
     /**
      * Email dello {@code User}: deve essere non {@code null} e aderire alla regex detta nel {@link Validator}.

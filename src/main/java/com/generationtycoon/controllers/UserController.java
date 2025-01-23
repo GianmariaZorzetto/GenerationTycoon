@@ -83,29 +83,6 @@ public class UserController {
         return converter.toUserLeaderboardRespDto(updated);
     }
 
-    @ExceptionHandler(InvalidTokenException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String handleInvalidEmailException(InvalidTokenException e) {
-        return e.getMessage();
-    }
-
-    @ExceptionHandler(InvalidPasswordException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public String handleInvalidPasswordException(InvalidPasswordException e) {
-        return e.getMessage();
-    }
-
-    @ExceptionHandler(InvalidUsernameException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public String handleInvalidUsernameException(InvalidUsernameException e) {
-        return e.getMessage();
-    }
-
-    @ExceptionHandler(UserMissingException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String handleUserMissingException(UserMissingException e) {
-        return e.getMessage();
-    }
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -119,9 +96,4 @@ public class UserController {
         return e.getMessage();
     }
 
-    @ExceptionHandler(InvalidEstimateException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleInvalidEstimateException(InvalidEstimateException e) {
-        return e.getMessage();
-    }
 }

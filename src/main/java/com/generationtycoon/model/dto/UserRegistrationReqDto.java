@@ -1,6 +1,10 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.generationtycoon.model.entities.Difficulty;
+
+import java.util.Objects;
 
 /**
  * Dto per richiedere la registrazione di un nuovo utente:
@@ -8,14 +12,19 @@ import com.generationtycoon.model.entities.Difficulty;
  * {@code password} e una {@code difficulty}.
  * Il dto è una classe <strong>immutabile</strong> questo significa che una volta finalizzata la costruzione i suoi parametri non possono essere modificati.
  * Si consiglia l'utilizzo della classe builder per la creazione o modifica dei parametri.
- *
- * @param email      l'email del nuovo utente.
- * @param username   lo username del nuovo utente.
- * @param password   la password del nuovo utente non <em>hashata</em>.
- * @param difficulty la difficoltà selezionata dall'utente.
  */
+@JsonSerialize
+@JsonDeserialize(as = UserRegistrationReqDto.class)
 public record UserRegistrationReqDto(String email, String username, String password,
                                      Difficulty difficulty) {
+    /**
+     * @param email      l'email del nuovo utente.
+     * @param username   lo username del nuovo utente.
+     * @param password   la password del nuovo utente non <em>hashata</em>.
+     * @param difficulty la difficoltà selezionata dall'utente.
+     */
+    public UserRegistrationReqDto {
+    }
 
     /**
      * Metodo per inizializzare un {@link UserRegistrationReqDtoBuilder}
@@ -25,6 +34,16 @@ public record UserRegistrationReqDto(String email, String username, String passw
     public static UserRegistrationReqDtoBuilder builder() {
         return new UserRegistrationReqDtoBuilder();
     }
+
+    @Override
+    public String toString() {
+        return "UserRegistrationReqDto[" +
+               "email=" + email + ", " +
+               "username=" + username + ", " +
+               "password=" + password + ", " +
+               "difficulty=" + difficulty + ']';
+    }
+
 
     /**
      * Classe che aderisce al pattern <em>builder</em>, per la costruzione di un {@code UserRegistrationReqDto}.
