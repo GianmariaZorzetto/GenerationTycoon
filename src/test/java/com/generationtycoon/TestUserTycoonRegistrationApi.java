@@ -1,9 +1,13 @@
 package com.generationtycoon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.generationtycoon.model.dto.UserLoginReqDto;
 import com.generationtycoon.model.dto.UserRegistrationReqDto;
 import com.generationtycoon.model.entities.Difficulty;
+import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,6 +19,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -28,11 +35,80 @@ public class TestUserTycoonRegistrationApi {
     @Autowired
     private UserRepository userRepo;
 
+    private String token;
+
     private final ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     public void setUp() {
         userRepo.deleteAll();
+        List<String> usernames = List.of(
+                "user1",
+                "cool_guy92",
+                "john_doe",
+                "jane.smith",
+                "the_real_deal",
+                "user1234",
+                "awesome_user",
+                "tech_guru",
+                "adventurer99",
+                "mystery_solver"
+        );
+
+        List<String> passwords = List.of(
+                "P@ssw0rd123!",
+                "C0mpl3x#Passw)ord",
+                "S3cur3P@ssw0rd!",
+                "Str0ngP@ssw0rd!",
+                "P@ssw0rd!2023",
+                "MyS3cureP@ss!",
+                "P@ssw0rd#1",
+                "S@fe&Sound2023",
+                "Unbr3akable#Password",
+                "P@ssw0rd$2023!"
+        );
+
+        List<String> emails = List.of(
+                "user1@example.com",
+                "coolguy92@example.com",
+                "john.doe@example.com",
+                "jane.smith@example.com",
+                "therealdeal@example.com",
+                "user1234@example.com",
+                "awesome.user@example.com",
+                "tech.guru@example.com",
+                "adventurer99@example.com",
+                "mystery.solver@example.com"
+        );
+
+        for (int i = 0; i < 10; i++) {
+            userRepo.save(
+                    UserTycoon.builder()
+                            .email(emails.get(i))
+                            .username(usernames.get(i))
+                            .password(DigestUtils.md5Hex(passwords.get(i)))
+                            .difficulty(Difficulty.HARD)
+                            .score(0.0)
+                            .build()
+            );
+        }
+        try {
+            UserLoginReqDto dto =
+                    UserLoginReqDto.builder()
+                            .email("coolguy92@example.com")
+                            .password("C0mpl3x#Passw)ord")
+                            .build();
+            mock.perform(post("/api/users/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(mapper.writeValueAsString(dto))).andDo(
+                    result -> {
+                        JSONObject jsonObject = new JSONObject(result.getResponse().getContentAsString());
+                        token = jsonObject.getString("token");
+                    }
+            );
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
@@ -105,6 +181,36 @@ public class TestUserTycoonRegistrationApi {
             throw new RuntimeException(e);
         }
     }
+
+    @Test
+    void testDeleteUser()
+    {
+		try
+		{
+			mock.perform(delete("/api/users/2").header("token",token))
+					.andExpect(status().isOk())
+					.andExpect(result -> result.getResponse().getContentAsString().equals("2"));
+		} catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+
+	}
+
+    @Test
+    void testDeleteUserWithoutPermission()
+    {
+		try
+		{
+			mock.perform(delete("/api/users/5").header("token",token))
+					.andExpect(status().isUnauthorized());
+		} catch (Exception e)
+		{
+			throw new RuntimeException(e);
+		}
+
+	}
+
 
 
 }
