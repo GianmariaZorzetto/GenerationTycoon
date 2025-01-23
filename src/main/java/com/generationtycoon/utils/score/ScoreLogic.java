@@ -33,9 +33,6 @@ public class ScoreLogic {
             case EASY -> score += 100 * dto.hp();
             case MEDIUM -> score += 300 * dto.hp();
             case HARD -> score += 1000;
-            default -> {
-                return null;
-            }
         }
         return score;
     }
