@@ -15,15 +15,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.StringJoiner;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TestUserTycoonApi {
+public class TestUserTycoonRegistrationApi {
     @Autowired
     private MockMvc mock;
 
@@ -35,12 +33,6 @@ public class TestUserTycoonApi {
     @BeforeEach
     public void setUp() {
         userRepo.deleteAll();
-    }
-
-    private String convertDtoToJson(UserRegistrationReqDto userRegistrationReqDto) {
-        StringJoiner sj = new StringJoiner(",", "{", "}");
-
-        return sj.toString();
     }
 
     @Test
