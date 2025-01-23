@@ -7,7 +7,7 @@ import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Brainj;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.Kaboom;
-import com.generationtycoon.model.entities.User;
+import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.BrainjRepository;
 import com.generationtycoon.model.repositories.KaboomRepository;
 import com.generationtycoon.model.repositories.UserRepository;
@@ -34,7 +34,7 @@ public class ControllerHelperImpl implements ControllerHelper {
     private final KaboomRepository kRepo;
 
     /**
-     * Repository dei {@link User}.
+     * Repository dei {@link UserTycoon}.
      */
     private final UserRepository uRepo;
 
@@ -90,7 +90,7 @@ public class ControllerHelperImpl implements ControllerHelper {
 
     @Override
     public void deleteUser(Long id) {
-        Optional<User> user = uRepo.findById(id);
+        Optional<UserTycoon> user = uRepo.findById(id);
 
         if (user.isEmpty())
             throw new UserMissingException("User non presente");
@@ -114,11 +114,11 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
-    public User updateUser(User user) {
-        User userDb = uRepo.findById(user.getId())
+    public UserTycoon updateUser(UserTycoon userTycoon) {
+        UserTycoon userTycoonDb = uRepo.findById(userTycoon.getId())
                 .orElseThrow(() -> new UserMissingException("Impossibile aggiornare utente non presente."));
-        userDb.setScore(user.getScore());
-        userDb.setDifficulty(user.getDifficulty());
-        return uRepo.save(userDb);
+        userTycoonDb.setScore(userTycoon.getScore());
+        userTycoonDb.setDifficulty(userTycoon.getDifficulty());
+        return uRepo.save(userTycoonDb);
     }
 }

@@ -3,7 +3,7 @@ package com.generationtycoon;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.Kaboom;
-import com.generationtycoon.model.entities.User;
+import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.KaboomRepository;
 import com.generationtycoon.model.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,16 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -50,7 +47,7 @@ public class TestKaboomApi {
             throw new RuntimeException(e);
         }
         userRepo.save(
-                User.builder()
+                UserTycoon.builder()
                         .email("test@domain.com")
                         .password("9$gT!3kZ@7mQ^1x")
                         .username("Admin")

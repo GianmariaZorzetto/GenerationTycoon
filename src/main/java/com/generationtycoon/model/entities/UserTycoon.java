@@ -5,7 +5,6 @@ import com.generationtycoon.controllers.exceptions.InvalidUsernameException;
 import com.generationtycoon.utils.validator.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Objects;
@@ -24,8 +23,7 @@ import java.util.Objects;
  * </ul>
  */
 @Entity
-@Table(name = "TestUser") // TODO cambiare in produzione
-public class User extends BaseEntity {
+public class UserTycoon extends BaseEntity {
     /**
      * Email dello {@code User}: deve essere non {@code null} e aderire alla regex detta nel {@link Validator}.
      */
@@ -64,7 +62,7 @@ public class User extends BaseEntity {
     /**
      * Costruttore vuoto della classe.
      */
-    public User() {
+    public UserTycoon() {
     }
 
     /**
@@ -78,7 +76,7 @@ public class User extends BaseEntity {
      * @param difficulty la difficoltà dello {@code User}.
      * @param score      lo score dello {@code User}.
      */
-    private User(String email, String password, String username, Difficulty difficulty, Double score) {
+    private UserTycoon(String email, String password, String username, Difficulty difficulty, Double score) {
         super();
         this.email = email;
         this.password = password;
@@ -99,7 +97,7 @@ public class User extends BaseEntity {
      * @throws IllegalArgumentException se {@code id} è minore di 1.
      * @throws NullPointerException     se {@code id} è {@code null}.
      */
-    private User(Long id, String email, String password, String username, Difficulty difficulty, Double score)
+    private UserTycoon(Long id, String email, String password, String username, Difficulty difficulty, Double score)
             throws IllegalArgumentException, NullPointerException {
         super(id);
         this.email = email;
@@ -245,7 +243,7 @@ public class User extends BaseEntity {
         private Double score;
 
         /**
-         * Costruttore privato del builder, per istanziare un {@code UserBuilder} utilizzare il metodo {@link User#builder()}.
+         * Costruttore privato del builder, per istanziare un {@code UserBuilder} utilizzare il metodo {@link UserTycoon#builder()}.
          */
         private UserBuilder() {
             this.email = null;
@@ -348,9 +346,9 @@ public class User extends BaseEntity {
          *
          * @return un nuovo {@code User} in base ai campi impostati in precedenza.
          */
-        public User build() {
-            if (id == null) return new User(email, password, username, difficulty, score);
-            else return new User(id, email, password, username, difficulty, score);
+        public UserTycoon build() {
+            if (id == null) return new UserTycoon(email, password, username, difficulty, score);
+            else return new UserTycoon(id, email, password, username, difficulty, score);
         }
     }
 }

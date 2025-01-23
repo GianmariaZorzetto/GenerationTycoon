@@ -3,11 +3,10 @@ package com.generationtycoon.utils.credentials;
 import com.generationtycoon.controllers.exceptions.InvalidEmailException;
 import com.generationtycoon.controllers.exceptions.InvalidPasswordException;
 import com.generationtycoon.controllers.exceptions.InvalidTokenException;
-import com.generationtycoon.controllers.exceptions.UserMissingException;
 import com.generationtycoon.model.dto.UserLoginReqDto;
 import com.generationtycoon.model.dto.UserLoginRespDto;
 import com.generationtycoon.model.dto.UserRegistrationReqDto;
-import com.generationtycoon.model.entities.User;
+import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
 import com.generationtycoon.utils.validator.Validator;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -88,16 +87,16 @@ public class CredentialService {
      */
     public UserLoginRespDto login(UserLoginReqDto dto)
             throws NullPointerException, InvalidEmailException, InvalidPasswordException {
-        User user = userRepo
+        UserTycoon userTycoon = userRepo
                 .findByEmail(Objects.requireNonNull(dto, "Request null.").email())
                 .orElseThrow(() -> new InvalidEmailException("Utente non trovato."));
         String passwordHashed = DigestUtils.md5Hex(dto.password());
-        if (!user.getPassword().equals(passwordHashed))
+        if (!userTycoon.getPassword().equals(passwordHashed))
             throw new InvalidPasswordException("Password non corretta.");
         return UserLoginRespDto.builder()
-                .token(generateToken(user.getEmail()))
-                .username(user.getUsername())
-                .id(user.getId())
+                .token(generateToken(userTycoon.getEmail()))
+                .username(userTycoon.getUsername())
+                .id(userTycoon.getId())
                 .build();
     }
 
@@ -105,19 +104,19 @@ public class CredentialService {
      * Metodo che registra uno user nel database.
      *
      * @param dto la richiesta dal client.
-     * @return uno {@link User}.
+     * @return uno {@link UserTycoon}.
      * @throws NullPointerException     se {@code dto} è {@code null}.
      * @throws InvalidPasswordException se la password nom è valida.
      * @throws InvalidEmailException    se l'email non è valida.
      */
-    public User register(UserRegistrationReqDto dto)
+    public UserTycoon register(UserRegistrationReqDto dto)
             throws NullPointerException, InvalidPasswordException, InvalidEmailException {
         String psw = Objects.requireNonNull(dto, "Dto null").password();
         if (!Validator.PASSWORD.validate(psw))
             throw new InvalidPasswordException("Password non corretta.");
         String passwordHashed = DigestUtils.md5Hex(psw);
         return userRepo.save(
-                User.builder()
+                UserTycoon.builder()
                         .email(dto.email())
                         .password(passwordHashed)
                         .username(dto.username())
@@ -134,7 +133,7 @@ public class CredentialService {
      * @throws NullPointerException  se la richiesta è {@code null}.
      * @throws InvalidTokenException se il token allegato non è stato allegato o non esiste uno user con il token.
      */
-    public User getUserByToken() throws NullPointerException, InvalidTokenException {
+    public UserTycoon getUserByToken() throws NullPointerException, InvalidTokenException {
         ServletRequestAttributes req = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String tokenReq =
                 Objects.requireNonNull(req, "Errore, request null.")

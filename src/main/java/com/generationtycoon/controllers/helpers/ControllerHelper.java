@@ -5,7 +5,7 @@ import com.generationtycoon.controllers.exceptions.KaboomMissingException;
 import com.generationtycoon.controllers.exceptions.UserMissingException;
 import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Difficulty;
-import com.generationtycoon.model.entities.User;
+import com.generationtycoon.model.entities.UserTycoon;
 
 import java.util.List;
 
@@ -71,5 +71,5 @@ public interface ControllerHelper {
      */
     BrainjRespDto getBrainjById(Long id) throws BrainjMissingException;
 
-    User updateUser(User user);
+    UserTycoon updateUser(UserTycoon userTycoon);
 }

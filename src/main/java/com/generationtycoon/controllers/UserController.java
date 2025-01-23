@@ -4,7 +4,7 @@ import com.generationtycoon.controllers.exceptions.*;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Difficulty;
-import com.generationtycoon.model.entities.User;
+import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.utils.credentials.CredentialService;
 import com.generationtycoon.utils.score.ScoreLogic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,8 @@ public class UserController {
     @PostMapping("/register")
     public UserLeaderboardRespDto register(@RequestBody UserRegistrationReqDto dto) {
         // TODO pensare a qualcosa di ritorno.
-        User user = cs.register(dto);
-        return converter.toUserLeaderboardRespDto(user);
+        UserTycoon userTycoon = cs.register(dto);
+        return converter.toUserLeaderboardRespDto(userTycoon);
     }
 
     @PostMapping("/login")
@@ -56,8 +56,8 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
-        User user = cs.getUserByToken();
-        if (!user.getId().equals(id))
+        UserTycoon userTycoon = cs.getUserByToken();
+        if (!userTycoon.getId().equals(id))
             throw new InvalidTokenException("Non puoi cancellare questo utente.");
         ch.deleteUser(id);
         return id;
@@ -78,8 +78,8 @@ public class UserController {
     @PutMapping("/newScore")
     public UserLeaderboardRespDto updateScore(@RequestBody UserUpdateScoreReqDto dto) {
         cs.getUserByToken();
-        User user = converter.toUser(dto);
-        User updated = ch.updateUser(user);
+        UserTycoon userTycoon = converter.toUser(dto);
+        UserTycoon updated = ch.updateUser(userTycoon);
         return converter.toUserLeaderboardRespDto(updated);
     }
 

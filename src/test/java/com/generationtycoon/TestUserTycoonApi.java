@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TestUserApi {
+public class TestUserTycoonApi {
     @Autowired
     private MockMvc mock;
 
