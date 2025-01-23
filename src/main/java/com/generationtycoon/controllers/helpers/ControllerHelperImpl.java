@@ -118,7 +118,6 @@ public class ControllerHelperImpl implements ControllerHelper {
         UserTycoon userTycoonDb = uRepo.findById(userTycoon.getId())
                 .orElseThrow(() -> new UserMissingException("Impossibile aggiornare utente non presente."));
         userTycoonDb.setScore(userTycoon.getScore());
-        userTycoonDb.setDifficulty(userTycoon.getDifficulty());
         return uRepo.save(userTycoonDb);
     }
 }

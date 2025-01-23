@@ -3,6 +3,7 @@ package com.generationtycoon;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generationtycoon.model.dto.UserLoginReqDto;
 import com.generationtycoon.model.dto.UserScoreReqDto;
+import com.generationtycoon.model.dto.UserUpdateScoreReqDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -176,5 +178,21 @@ public class TestScoreApi {
         }
     }
 
-
+    @Test
+    void testUpdateScore() {
+        try {
+            UserUpdateScoreReqDto dto =
+                    new UserUpdateScoreReqDto(2L, 120.6);
+            mock.perform(put("/api/users/newScore")
+                            .header("token", token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(mapper.writeValueAsString(dto))
+                    ).andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.username").value("cool_guy92"))
+                    .andExpect(jsonPath("$.score").value(120.6));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

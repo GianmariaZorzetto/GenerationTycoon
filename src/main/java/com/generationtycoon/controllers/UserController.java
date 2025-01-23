@@ -79,8 +79,6 @@ public class UserController {
     public UserLeaderboardRespDto updateScore(@RequestBody UserUpdateScoreReqDto dto) {
         cs.getUserByToken();
         UserTycoon userTycoon = converter.toUser(dto);
-        if (!userTycoon.getId().equals(dto.id()))
-            throw new InvalidTokenException("Non puoi aggiornare questo utente.");
         UserTycoon updated = ch.updateUser(userTycoon);
         return converter.toUserLeaderboardRespDto(updated);
     }
