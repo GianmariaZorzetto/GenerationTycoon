@@ -104,7 +104,7 @@ public class CredentialService {
      * @return uno {@link User}.
      * @throws NullPointerException     se {@code dto} è {@code null}.
      * @throws InvalidPasswordException se la password nom è valida.
-     * @throws InvalidEmailException se l'email non è valida.
+     * @throws InvalidEmailException    se l'email non è valida.
      */
     public User register(UserRegistrationReqDto dto)
             throws NullPointerException, InvalidPasswordException, InvalidEmailException {
@@ -128,10 +128,9 @@ public class CredentialService {
      *
      * @return lo user nel database.
      * @throws NullPointerException  se la richiesta è {@code null}.
-     * @throws InvalidTokenException se il token allegato non è stato allegato.
-     * @throws UserMissingException  se non esiste nessun user con quel token associato.
+     * @throws InvalidTokenException se il token allegato non è stato allegato o non esiste uno user con il token.
      */
-    public User getUserByToken() throws NullPointerException, InvalidTokenException, UserMissingException {
+    public User getUserByToken() throws NullPointerException, InvalidTokenException {
         ServletRequestAttributes req = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String tokenReq =
                 Objects.requireNonNull(req, "Errore, request null.")
@@ -140,6 +139,6 @@ public class CredentialService {
         if (tokenReq == null)
             throw new InvalidTokenException("Token non trovato.");
         String token = convertToken(tokenReq);
-        return userRepo.findByEmail(token).orElseThrow(() -> new UserMissingException("User non trovato"));
+        return userRepo.findByEmail(token).orElseThrow(() -> new InvalidTokenException("User non trovato"));
     }
 }

@@ -1,31 +1,43 @@
 package com.generationtycoon.controllers;
 
+import com.generationtycoon.controllers.exceptions.KaboomMissingException;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.KaboomRespDto;
+import com.generationtycoon.utils.credentials.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/kaboom")
-public class KaboomController
-{
-	@Autowired
-	ControllerHelper ch;
+@RequestMapping("api/kabooms")
+public class KaboomController {
 
-	@GetMapping
-	public List<KaboomRespDto> getAll()
-	{
-		return ch.getAllKabooms();
-	}
+    private final ControllerHelper ch;
+    private final CredentialService service;
 
-	@GetMapping("/{id}")
-	public KaboomRespDto getOne(@PathVariable long id)
-	{
-		return ch.getKaboomById(id);
-	}
+    @Autowired
+    public KaboomController(ControllerHelper ch, CredentialService service) {
+        this.ch = ch;
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<KaboomRespDto> getAll() {
+        service.getUserByToken();
+        return ch.getAllKabooms();
+    }
+
+    @GetMapping("/{id}")
+    public KaboomRespDto getOne(@PathVariable Long id) {
+        service.getUserByToken();
+        return ch.getKaboomById(id);
+    }
+
+    @ExceptionHandler(KaboomMissingException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleKaboomMissingException(KaboomMissingException e) {
+        return e.getMessage();
+    }
 }

@@ -1,31 +1,43 @@
 package com.generationtycoon.controllers;
 
+import com.generationtycoon.controllers.exceptions.BrainjMissingException;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.BrainjRespDto;
+import com.generationtycoon.utils.credentials.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/brainj")
-public class BrainjController
-{
-	@Autowired
-	ControllerHelper ch;
+@RequestMapping("/api/brainjs")
+public class BrainjController {
 
-	@GetMapping
-	public List<BrainjRespDto> getAll()
-	{
-		return ch.getAllBrainjs();
-	}
+    private final ControllerHelper ch;
+    private final CredentialService service;
 
-	@GetMapping("/{id}")
-	public BrainjRespDto getOne(@PathVariable long id)
-	{
-		return ch.getBrainjById(id);
-	}
+    @Autowired
+    public BrainjController(ControllerHelper ch, CredentialService service) {
+        this.ch = ch;
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<BrainjRespDto> getAll() {
+        service.getUserByToken();
+        return ch.getAllBrainjs();
+    }
+
+    @GetMapping("/{id}")
+    public BrainjRespDto getOne(@PathVariable Long id) {
+        service.getUserByToken();
+        return ch.getBrainjById(id);
+    }
+
+    @ExceptionHandler(BrainjMissingException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleMissingBrainj(BrainjMissingException ex) {
+        return ex.getMessage();
+    }
 }
