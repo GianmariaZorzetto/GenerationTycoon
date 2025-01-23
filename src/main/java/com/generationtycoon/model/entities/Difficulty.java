@@ -5,12 +5,6 @@ import org.springframework.lang.Nullable;
 /**
  * {@link Enum} che rappresenta la difficoltà della partita.</br>
  * Ogni difficoltà ha un {@code multiplier}.</br>
- * Le possibili difficoltà sono:
- * <ul>
- *     <li>{@code EASY} con moltiplicatore di {@code 1}.</li>
- *     <li>{@code MEDIUM} con moltiplicatore di {@code 2}.</li>
- *     <li>{@code HARD} con moltiplicatore di {@code 3}.</li>
- * </ul>
  */
 public enum Difficulty {
     /**
@@ -44,9 +38,7 @@ public enum Difficulty {
      * Metodo che restituisce una difficoltà in base a una {@link String}.
      * Data una {@code difficulty} come {@link String} in ingresso il metodo restituisce un enum secondo il seguente schema:
      * <ul>
-     *     <li>{@code facile} o {@code easy} -&gt; {@code EASY}</li>
-     *     <li>{@code intermedio} o {@code medium} -&gt; {@code MEDIUM}</li>
-     *     <li>{@code avanzato} o {@code hard} -&gt; {@code HARD}</li>
+     *     <li>{@code difficoltà} -&gt; una {@code Difficulty}</li>
      *     <li>{@code qualsiasiAltraStringa} -&gt; {@code null}</li>
      * </ul>
      * Il metodo è case insensitive.
