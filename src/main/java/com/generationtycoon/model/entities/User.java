@@ -24,7 +24,7 @@ import java.util.Objects;
  * </ul>
  */
 @Entity
-@Table(name = "TestUser")
+@Table(name = "TestUser") // TODO cambiare in produzione
 public class User extends BaseEntity {
     /**
      * Email dello {@code User}: deve essere non {@code null} e aderire alla regex detta nel {@link Validator}.
