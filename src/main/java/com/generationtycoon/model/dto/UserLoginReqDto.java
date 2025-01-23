@@ -1,5 +1,8 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Dto per la richiesta di un login.
  * Il dto è una classe <strong>immutabile</strong> questo significa che una volta finalizzata la costruzione i suoi parametri non possono essere modificati.
@@ -8,6 +11,8 @@ package com.generationtycoon.model.dto;
  * @param email    l'email dell'utente.
  * @param password la password dell'utente.
  */
+@JsonSerialize
+@JsonDeserialize(as = UserLoginReqDto.class)
 public record UserLoginReqDto(String email, String password) {
 
     /**

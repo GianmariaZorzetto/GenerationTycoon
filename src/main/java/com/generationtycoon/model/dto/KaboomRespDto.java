@@ -1,5 +1,7 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.generationtycoon.model.entities.KaboomColors;
 
 /**
@@ -12,6 +14,8 @@ import com.generationtycoon.model.entities.KaboomColors;
  * @param answer4      la quarta risposta possibile.
  * @param correctColor il colore della risposta corretta.
  */
+@JsonSerialize
+@JsonDeserialize(as = KaboomRespDto.class)
 public record KaboomRespDto(String question,
                             String answer1,
                             String answer2,

@@ -1,5 +1,8 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Dto per la risposta a un login.
  *
@@ -7,6 +10,8 @@ package com.generationtycoon.model.dto;
  * @param id       l'id dell'utente.
  * @param username lo username dell'utente.
  */
+@JsonSerialize
+@JsonDeserialize(as = UserLoginRespDto.class)
 public record UserLoginRespDto(String token, Long id, String username) {
 
     public static UserLoginRespDtoBuilder builder() {

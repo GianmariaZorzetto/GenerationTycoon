@@ -1,5 +1,7 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.generationtycoon.model.entities.Difficulty;
 
 /**
@@ -11,6 +13,8 @@ import com.generationtycoon.model.entities.Difficulty;
  * @param difficulty la difficoltà selezionata dallo user.
  * @param score      lo score dello user.
  */
+@JsonSerialize
+@JsonDeserialize(as = UserLeaderboardRespDto.class)
 public record UserLeaderboardRespDto(String username, Difficulty difficulty, double score) {
 
 

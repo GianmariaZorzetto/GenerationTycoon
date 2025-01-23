@@ -1,5 +1,7 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.generationtycoon.model.entities.Difficulty;
 
 import java.time.LocalDateTime;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
  * @param hp         gli hp rimanenti.
  * @param difficulty la difficoltà.
  */
+@JsonSerialize
+@JsonDeserialize(as = UserScoreReqDto.class)
 public record UserScoreReqDto(LocalDateTime startTime,
                               LocalDateTime endTime,
                               int hp,

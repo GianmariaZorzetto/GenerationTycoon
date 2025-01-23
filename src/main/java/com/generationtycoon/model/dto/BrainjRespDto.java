@@ -1,11 +1,16 @@
 package com.generationtycoon.model.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Dto per inviare un quiz di brainj.
  *
  * @param question la domanda del quiz.
  * @param answer   la risposta del quiz.
  */
+@JsonSerialize
+@JsonDeserialize(as = BrainjRespDto.class)
 public record BrainjRespDto(String question, String answer) {
 
     /**
