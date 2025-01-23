@@ -1,6 +1,7 @@
 package com.generationtycoon.controllers;
 
-import com.generationtycoon.controllers.exceptions.*;
+import com.generationtycoon.controllers.exceptions.InvalidEstimateException;
+import com.generationtycoon.controllers.exceptions.InvalidTokenException;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Difficulty;
@@ -8,7 +9,6 @@ import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.utils.credentials.CredentialService;
 import com.generationtycoon.utils.score.ScoreLogic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,19 +81,6 @@ public class UserController {
         UserTycoon userTycoon = converter.toUser(dto);
         UserTycoon updated = ch.updateUser(userTycoon);
         return converter.toUserLeaderboardRespDto(updated);
-    }
-
-
-    @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleNullPointerException(NullPointerException e) {
-        return e.getMessage();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public String handleIllegalArgumentException(IllegalArgumentException e) {
-        return e.getMessage();
     }
 
 }

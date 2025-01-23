@@ -2,6 +2,8 @@ package com.generationtycoon.model.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.generationtycoon.model.entities.Difficulty;
 
 import java.time.LocalDateTime;
@@ -16,8 +18,13 @@ import java.time.LocalDateTime;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserScoreReqDto.class)
-public record UserScoreReqDto(LocalDateTime startTime,
-                              LocalDateTime endTime,
-                              int hp,
-                              Difficulty difficulty) {
+public record UserScoreReqDto(
+        @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+        @JsonSerialize(using = LocalDateTimeSerializer.class)
+        LocalDateTime startTime,
+        @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+        @JsonSerialize(using = LocalDateTimeSerializer.class)
+        LocalDateTime endTime,
+        int hp,
+        Difficulty difficulty) {
 }
