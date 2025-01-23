@@ -21,7 +21,7 @@ public record KaboomRespDto(String question,
                             String answer2,
                             String answer3,
                             String answer4,
-                            String correctColor) {
+                            KaboomColors correctColor) {
 
     /**
      * Metodo per inizializzare un builder.
@@ -139,7 +139,7 @@ public record KaboomRespDto(String question,
          * @return un nuovo {@code KaboomRespDto} con i campi impostati dai metodi chiamati in precedenza.
          */
         public KaboomRespDto build() {
-            return new KaboomRespDto(question, answer1, answer2, answer3, answer4, correctColor.name().toLowerCase());
+            return new KaboomRespDto(question, answer1, answer2, answer3, answer4, correctColor);
         }
 
     }
