@@ -97,6 +97,7 @@ public class CredentialService {
                 .token(generateToken(userTycoon.getEmail()))
                 .username(userTycoon.getUsername())
                 .id(userTycoon.getId())
+                .difficulty(userTycoon.getDifficulty())
                 .build();
     }
 

@@ -35,16 +35,6 @@ public record UserRegistrationReqDto(String email, String username, String passw
         return new UserRegistrationReqDtoBuilder();
     }
 
-    @Override
-    public String toString() {
-        return "UserRegistrationReqDto[" +
-               "email=" + email + ", " +
-               "username=" + username + ", " +
-               "password=" + password + ", " +
-               "difficulty=" + difficulty + ']';
-    }
-
-
     /**
      * Classe che aderisce al pattern <em>builder</em>, per la costruzione di un {@code UserRegistrationReqDto}.
      */

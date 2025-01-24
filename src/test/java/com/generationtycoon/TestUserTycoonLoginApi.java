@@ -106,7 +106,8 @@ public class TestUserTycoonLoginApi {
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.token").isNotEmpty())
                     .andExpect(jsonPath("$.username").value("cool_guy92"))
-                    .andExpect(jsonPath("$.id").value(2));
+                    .andExpect(jsonPath("$.id").value(2))
+                    .andExpect(jsonPath("$.difficulty").value("HARD"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
