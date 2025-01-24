@@ -2,10 +2,10 @@ package com.generationtycoon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generationtycoon.model.dto.UserLoginReqDto;
-import com.generationtycoon.model.dto.UserLoginRespDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,16 +35,23 @@ public class TestUserTycoonLoginApi {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private EntityManager entityManager;
+
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Transactional
     void recreateTable() {
-
+        String creation = "CREATE TABLE user_tycoon (id BIGINT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, difficulty VARCHAR(50) NOT NULL, score DOUBLE NOT NULL CHECK (score >= 0));";
+        String drop = "DROP TABLE user_tycoon;";
+        entityManager.createNativeQuery(drop).executeUpdate();
+        entityManager.createNativeQuery(creation).executeUpdate();
     }
 
+    @Transactional
     @BeforeEach
     public void setUp() {
-        userRepo.deleteAll();
+        recreateTable();
         List<String> usernames = List.of(
                 "user1",
                 "cool_guy92",
@@ -149,8 +156,7 @@ public class TestUserTycoonLoginApi {
     }
 
     @Test
-    void testUserFailPassword()
-    {
+    void testUserFailPassword() {
         try {
             UserLoginReqDto dto =
                     UserLoginReqDto.builder()

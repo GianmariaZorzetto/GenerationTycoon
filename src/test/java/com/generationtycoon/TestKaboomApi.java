@@ -7,6 +7,8 @@ import com.generationtycoon.model.entities.Kaboom;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.KaboomRepository;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class TestKaboomApi {
     @Autowired
     private MockMvc mock;
@@ -40,12 +43,27 @@ public class TestKaboomApi {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private EntityManager entityManager;
+
     private String token;
 
+    @Transactional
+    void recreateTable() {
+        String creation = "CREATE TABLE user_tycoon (id BIGINT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, difficulty VARCHAR(50) NOT NULL, score DOUBLE NOT NULL CHECK (score >= 0));";
+        String drop = "DROP TABLE user_tycoon;";
+        entityManager.createNativeQuery(drop).executeUpdate();
+        entityManager.createNativeQuery(creation).executeUpdate();
+        String creationKaboom = "CREATE TABLE kaboom (id BIGINT AUTO_INCREMENT PRIMARY KEY, question VARCHAR(255) NOT NULL, answer1 VARCHAR(255) NOT NULL, answer2 VARCHAR(255) NOT NULL, answer3 VARCHAR(255) NOT NULL, answer4 VARCHAR(255) NOT NULL, correct_color VARCHAR(50) NOT NULL);";
+        String dropKaboom = "DROP TABLE kaboom;";
+        entityManager.createNativeQuery(dropKaboom).executeUpdate();
+        entityManager.createNativeQuery(creationKaboom).executeUpdate();
+    }
+
     @BeforeEach
+    @Transactional
     public void setUp() {
-        kRepo.deleteAll();
-        userRepo.deleteAll();
+        recreateTable();
         ObjectMapper mapper = new ObjectMapper();
         try (InputStream file = new FileInputStream("src/test/resources/kabooms/kabooms.json")) {
             List<Kaboom> kabooms = mapper.readValue(file, mapper.getTypeFactory().constructCollectionType(List.class, Kaboom.class));
