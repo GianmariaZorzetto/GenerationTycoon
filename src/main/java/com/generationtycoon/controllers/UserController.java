@@ -83,4 +83,10 @@ public class UserController {
         return converter.toUserLeaderboardRespDto(updated);
     }
 
+    @PutMapping("/reset")
+    public UserLoginRespDto reset(@RequestBody UserResetReqDto dto) {
+        cs.getUserByToken();
+        UserTycoon userTycoon = ch.resetUser(dto);
+        return UserLoginRespDto.builder().id(userTycoon.getId()).token(dto.token()).username(userTycoon.getUsername()).difficulty(userTycoon.getDifficulty()).build();
+    }
 }

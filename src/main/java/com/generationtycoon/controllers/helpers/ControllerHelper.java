@@ -72,4 +72,6 @@ public interface ControllerHelper {
     BrainjRespDto getBrainjById(Long id) throws BrainjMissingException;
 
     UserTycoon updateUser(UserTycoon userTycoon);
+
+    UserTycoon resetUser(UserResetReqDto userResetReqDto);
 }

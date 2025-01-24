@@ -120,4 +120,19 @@ public class ControllerHelperImpl implements ControllerHelper {
         userTycoonDb.setScore(userTycoon.getScore());
         return uRepo.save(userTycoonDb);
     }
+
+    @Override
+    public UserTycoon resetUser(UserResetReqDto userResetReqDto)
+    {
+        Optional<UserTycoon> user = uRepo.findById(userResetReqDto.id());
+
+        if (user.isEmpty())
+            throw new UserMissingException("User non presente");
+
+        UserTycoon userConverted = converter.userReseReqDtoToEntity(userResetReqDto);
+        userConverted.setEmail(user.get().getEmail());
+        userConverted.setPassword(user.get().getPassword());
+        userConverted.setUsername(user.get().getUsername());
+        return uRepo.save(userConverted);
+    }
 }

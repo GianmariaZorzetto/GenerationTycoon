@@ -2,6 +2,7 @@ package com.generationtycoon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.generationtycoon.model.dto.UserLoginReqDto;
+import com.generationtycoon.model.dto.UserResetReqDto;
 import com.generationtycoon.model.dto.UserScoreReqDto;
 import com.generationtycoon.model.dto.UserUpdateScoreReqDto;
 import com.generationtycoon.model.entities.Difficulty;
@@ -192,6 +193,43 @@ public class TestScoreApi {
                     .andExpect(jsonPath("$.username").value("cool_guy92"))
                     .andExpect(jsonPath("$.score").value(120.6));
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testResetScore()
+    {
+        try
+        {
+            UserResetReqDto user = new UserResetReqDto(token, 2L, Difficulty.EASY);
+            mock.perform(put("/api/users/reset")
+                    .header("token", token)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(mapper.writeValueAsString(user)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id").value(2))
+                    .andExpect(jsonPath("$.difficulty").value("EASY"));
+        } catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    void testResetScoreFailByDifficulty()
+    {
+        try
+        {
+            UserResetReqDto user = new UserResetReqDto(token, 2L, Difficulty.fromString("TAPPETINO"));
+            mock.perform(put("/api/users/reset")
+                            .header("token", token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(mapper.writeValueAsString(user)))
+                    .andExpect(status().isInternalServerError());
+        } catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
     }

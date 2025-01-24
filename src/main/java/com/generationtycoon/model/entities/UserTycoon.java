@@ -147,7 +147,7 @@ public class UserTycoon extends BaseEntity {
     public void setPassword(String password) throws IllegalArgumentException {
         if (Objects.requireNonNull(password, "Password null.").isBlank())
             throw new IllegalArgumentException("Password blank");
-        this.password = DigestUtils.md5Hex(password);
+        this.password = password;
     }
 
     /**
