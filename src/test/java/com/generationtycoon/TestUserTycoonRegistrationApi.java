@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -35,9 +36,9 @@ public class TestUserTycoonRegistrationApi {
     @Autowired
     private UserRepository userRepo;
 
-    private String token;
+    private static String token;
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     @BeforeEach
     public void setUp() {
@@ -183,34 +184,27 @@ public class TestUserTycoonRegistrationApi {
     }
 
     @Test
-    void testDeleteUser()
-    {
-		try
-		{
-			mock.perform(delete("/api/users/2").header("token",token))
-					.andExpect(status().isOk())
-					.andExpect(result -> result.getResponse().getContentAsString().equals("2"));
-		} catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+    void testDeleteUser() {
+        try {
+            var x = mock.perform(delete("/api/users/2").header("token", token))
+                    .andExpect(status().isOk()).andReturn();
+            assertEquals("2", x.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-	}
+    }
 
     @Test
-    void testDeleteUserWithoutPermission()
-    {
-		try
-		{
-			mock.perform(delete("/api/users/5").header("token",token))
-					.andExpect(status().isUnauthorized());
-		} catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+    void testDeleteUserWithoutPermission() {
+        try {
+            mock.perform(delete("/api/users/5").header("token", token))
+                    .andExpect(status().isUnauthorized());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-	}
-
+    }
 
 
 }
