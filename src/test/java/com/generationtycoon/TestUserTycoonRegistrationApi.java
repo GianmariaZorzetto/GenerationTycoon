@@ -6,6 +6,8 @@ import com.generationtycoon.model.dto.UserRegistrationReqDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class TestUserTycoonRegistrationApi {
     @Autowired
     private MockMvc mock;
@@ -35,13 +39,25 @@ public class TestUserTycoonRegistrationApi {
     @Autowired
     private UserRepository userRepo;
 
-    private String token;
+    @Autowired
+    private EntityManager entityManager;
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static String token;
+
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    @Transactional
+    void recreateTable() {
+        String creation = "CREATE TABLE user_tycoon (id BIGINT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, difficulty VARCHAR(50) NOT NULL, score DOUBLE NOT NULL CHECK (score >= 0));";
+        String drop = "DROP TABLE user_tycoon;";
+        entityManager.createNativeQuery(drop).executeUpdate();
+        entityManager.createNativeQuery(creation).executeUpdate();
+    }
 
     @BeforeEach
+    @Transactional
     public void setUp() {
-        userRepo.deleteAll();
+        recreateTable();
         List<String> usernames = List.of(
                 "user1",
                 "cool_guy92",
@@ -126,6 +142,7 @@ public class TestUserTycoonRegistrationApi {
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.token").isString())
                     .andExpect(jsonPath("$.score").isNumber());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -183,34 +200,27 @@ public class TestUserTycoonRegistrationApi {
     }
 
     @Test
-    void testDeleteUser()
-    {
-		try
-		{
-			mock.perform(delete("/api/users/2").header("token",token))
-					.andExpect(status().isOk())
-					.andExpect(result -> result.getResponse().getContentAsString().equals("2"));
-		} catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+    void testDeleteUser() {
+        try {
+            var x = mock.perform(delete("/api/users/2").header("token", token))
+                    .andExpect(status().isOk()).andReturn();
+            assertEquals("2", x.getResponse().getContentAsString());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-	}
+    }
 
     @Test
-    void testDeleteUserWithoutPermission()
-    {
-		try
-		{
-			mock.perform(delete("/api/users/5").header("token",token))
-					.andExpect(status().isUnauthorized());
-		} catch (Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+    void testDeleteUserWithoutPermission() {
+        try {
+            mock.perform(delete("/api/users/5").header("token", token))
+                    .andExpect(status().isUnauthorized());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-	}
-
+    }
 
 
 }

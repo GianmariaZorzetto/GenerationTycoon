@@ -6,6 +6,7 @@ import com.generationtycoon.model.dto.UserLoginRespDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class TestUserTycoonLoginApi {
     @Autowired
     private MockMvc mock;
@@ -35,6 +37,10 @@ public class TestUserTycoonLoginApi {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @Transactional
+    void recreateTable() {
+
+    }
 
     @BeforeEach
     public void setUp() {
