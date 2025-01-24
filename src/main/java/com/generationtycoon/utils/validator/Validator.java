@@ -1,4 +1,4 @@
-package com.generationtycoon.validator;
+package com.generationtycoon.utils.validator;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
