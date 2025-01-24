@@ -3,6 +3,8 @@ package com.generationtycoon.model.repositories;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +13,8 @@ import java.util.Optional;
  * Repository di {@link UserTycoon}.
  */
 public interface UserRepository extends JpaRepository<UserTycoon, Long> {
+
+
     /**
      * Cerca nel database un {@link UserTycoon} data la sua {@code email}.
      *

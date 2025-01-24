@@ -6,6 +6,8 @@ import com.generationtycoon.model.dto.UserRegistrationReqDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class TestUserTycoonRegistrationApi {
     @Autowired
     private MockMvc mock;
@@ -36,13 +39,25 @@ public class TestUserTycoonRegistrationApi {
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private EntityManager entityManager;
+
     private static String token;
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    @Transactional
+    void recreateTable() {
+        String creation = "CREATE TABLE user_tycoon (id BIGINT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, difficulty VARCHAR(50) NOT NULL, score DOUBLE NOT NULL CHECK (score >= 0));";
+        String drop = "DROP TABLE user_tycoon;";
+        entityManager.createNativeQuery(drop).executeUpdate();
+        entityManager.createNativeQuery(creation).executeUpdate();
+    }
+
     @BeforeEach
+    @Transactional
     public void setUp() {
-        userRepo.deleteAll();
+        recreateTable();
         List<String> usernames = List.of(
                 "user1",
                 "cool_guy92",
@@ -127,6 +142,7 @@ public class TestUserTycoonRegistrationApi {
                             .content(mapper.writeValueAsString(dto)))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.token").isString())
                     .andExpect(jsonPath("$.score").isNumber());
         } catch (Exception e) {
             throw new RuntimeException(e);

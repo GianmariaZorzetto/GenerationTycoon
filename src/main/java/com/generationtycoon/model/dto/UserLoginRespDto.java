@@ -17,6 +17,7 @@ public record UserLoginRespDto(
         String token,
         Long id,
         String username,
+        Double score,
         Difficulty difficulty
 ) {
 
@@ -29,6 +30,7 @@ public record UserLoginRespDto(
         private Long id;
         private String username;
         private Difficulty difficulty;
+        private Double score;
 
         private UserLoginRespDtoBuilder() {
         }
@@ -53,8 +55,13 @@ public record UserLoginRespDto(
             return this;
         }
 
+        public UserLoginRespDtoBuilder score(Double score) {
+            this.score = score;
+            return this;
+        }
+
         public UserLoginRespDto build() {
-            return new UserLoginRespDto(token, id, username, difficulty);
+            return new UserLoginRespDto(token, id, username, score, difficulty);
         }
     }
 }

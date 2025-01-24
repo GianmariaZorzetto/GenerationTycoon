@@ -33,9 +33,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserLeaderboardRespDto register(@RequestBody UserRegistrationReqDto dto) {
+    public UserLoginRespDto register(@RequestBody UserRegistrationReqDto dto) {
         UserTycoon userTycoon = cs.register(dto);
-        return converter.toUserLeaderboardRespDto(userTycoon);
+        UserLoginReqDto dtoLogin =
+                UserLoginReqDto.builder().email(dto.email()).password(dto.password()).build();
+        return cs.login(dtoLogin);
     }
 
     @PostMapping("/login")
