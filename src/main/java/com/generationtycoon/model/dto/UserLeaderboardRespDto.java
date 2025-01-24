@@ -15,7 +15,11 @@ import com.generationtycoon.model.entities.Difficulty;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserLeaderboardRespDto.class)
-public record UserLeaderboardRespDto(String username, Difficulty difficulty, double score) {
+public record UserLeaderboardRespDto(
+        String username,
+        Difficulty difficulty,
+        double score
+) {
 
 
     /**

@@ -11,5 +11,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserUpdateScoreReqDto.class)
-public record UserUpdateScoreReqDto(Long id, Double score) {
+public record UserUpdateScoreReqDto(
+        Long id,
+        Double score
+) {
 }

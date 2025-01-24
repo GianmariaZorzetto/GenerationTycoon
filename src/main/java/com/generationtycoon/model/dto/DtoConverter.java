@@ -106,8 +106,7 @@ public class DtoConverter {
         return BrainjRespDto.builder().question(brainj.getQuestion()).answer(brainj.getAnswer()).build();
     }
 
-    public UserTycoon userReseReqDtoToEntity(UserResetReqDto dto)
-    {
+    public UserTycoon userReseReqDtoToEntity(UserResetReqDto dto) {
         return UserTycoon.builder().id(dto.id()).difficulty(dto.difficulty()).score(0.0).build();
     }
 }

@@ -5,7 +5,6 @@ import com.generationtycoon.controllers.exceptions.InvalidUsernameException;
 import com.generationtycoon.utils.validator.Validator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Objects;
 

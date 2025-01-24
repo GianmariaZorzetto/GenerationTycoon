@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.generationtycoon.model.entities.Difficulty;
 
-import java.util.Objects;
-
 /**
  * Dto per richiedere la registrazione di un nuovo utente:
  * nella richiesta arriveranno i parametri {@code email}, {@code username},
@@ -15,8 +13,12 @@ import java.util.Objects;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserRegistrationReqDto.class)
-public record UserRegistrationReqDto(String email, String username, String password,
-                                     Difficulty difficulty) {
+public record UserRegistrationReqDto(
+        String email,
+        String username,
+        String password,
+        Difficulty difficulty
+) {
     /**
      * @param email      l'email del nuovo utente.
      * @param username   lo username del nuovo utente.

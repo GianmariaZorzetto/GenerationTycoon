@@ -16,12 +16,14 @@ import com.generationtycoon.model.entities.KaboomColors;
  */
 @JsonSerialize
 @JsonDeserialize(as = KaboomRespDto.class)
-public record KaboomRespDto(String question,
-                            String answer1,
-                            String answer2,
-                            String answer3,
-                            String answer4,
-                            KaboomColors correctColor) {
+public record KaboomRespDto(
+        String question,
+        String answer1,
+        String answer2,
+        String answer3,
+        String answer4,
+        KaboomColors correctColor
+) {
 
     /**
      * Metodo per inizializzare un builder.

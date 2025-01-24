@@ -13,7 +13,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserLoginReqDto.class)
-public record UserLoginReqDto(String email, String password) {
+public record UserLoginReqDto(
+        String email,
+        String password
+) {
 
     /**
      * Metodo per l'inizializzazione di un {@link UserLoginReqDtoBuilder}.

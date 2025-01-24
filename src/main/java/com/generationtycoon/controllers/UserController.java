@@ -34,7 +34,6 @@ public class UserController {
 
     @PostMapping("/register")
     public UserLeaderboardRespDto register(@RequestBody UserRegistrationReqDto dto) {
-        // TODO pensare a qualcosa di ritorno.
         UserTycoon userTycoon = cs.register(dto);
         return converter.toUserLeaderboardRespDto(userTycoon);
     }
@@ -87,6 +86,11 @@ public class UserController {
     public UserLoginRespDto reset(@RequestBody UserResetReqDto dto) {
         cs.getUserByToken();
         UserTycoon userTycoon = ch.resetUser(dto);
-        return UserLoginRespDto.builder().id(userTycoon.getId()).token(dto.token()).username(userTycoon.getUsername()).difficulty(userTycoon.getDifficulty()).build();
+        return UserLoginRespDto.builder()
+                .id(userTycoon.getId())
+                .token(dto.token())
+                .username(userTycoon.getUsername())
+                .difficulty(userTycoon.getDifficulty())
+                .build();
     }
 }

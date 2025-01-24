@@ -13,7 +13,12 @@ import com.generationtycoon.model.entities.Difficulty;
  */
 @JsonSerialize
 @JsonDeserialize(as = UserLoginRespDto.class)
-public record UserLoginRespDto(String token, Long id, String username, Difficulty difficulty) {
+public record UserLoginRespDto(
+        String token,
+        Long id,
+        String username,
+        Difficulty difficulty
+) {
 
     public static UserLoginRespDtoBuilder builder() {
         return new UserLoginRespDtoBuilder();

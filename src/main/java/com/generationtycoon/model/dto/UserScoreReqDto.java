@@ -26,5 +26,6 @@ public record UserScoreReqDto(
         @JsonSerialize(using = LocalDateTimeSerializer.class)
         LocalDateTime endTime,
         int hp,
-        Difficulty difficulty) {
+        Difficulty difficulty
+) {
 }

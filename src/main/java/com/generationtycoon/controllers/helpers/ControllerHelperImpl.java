@@ -122,8 +122,7 @@ public class ControllerHelperImpl implements ControllerHelper {
     }
 
     @Override
-    public UserTycoon resetUser(UserResetReqDto userResetReqDto)
-    {
+    public UserTycoon resetUser(UserResetReqDto userResetReqDto) {
         Optional<UserTycoon> user = uRepo.findById(userResetReqDto.id());
 
         if (user.isEmpty())

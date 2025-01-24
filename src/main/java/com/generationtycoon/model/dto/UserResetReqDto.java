@@ -6,6 +6,9 @@ import com.generationtycoon.model.entities.Difficulty;
 
 @JsonSerialize
 @JsonDeserialize(as = UserResetReqDto.class)
-public record UserResetReqDto(String token, Long id, Difficulty difficulty)
-{
+public record UserResetReqDto(
+        String token,
+        Long id,
+        Difficulty difficulty
+) {
 }

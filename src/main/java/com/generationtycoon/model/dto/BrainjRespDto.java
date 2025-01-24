@@ -11,7 +11,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @JsonSerialize
 @JsonDeserialize(as = BrainjRespDto.class)
-public record BrainjRespDto(String question, String answer) {
+public record BrainjRespDto(
+        String question,
+        String answer
+) {
 
     /**
      * Metodo per istanziare un {@link BrainjRespDtoBuilder}.
