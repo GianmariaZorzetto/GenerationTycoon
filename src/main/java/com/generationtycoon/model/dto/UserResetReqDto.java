@@ -8,7 +8,7 @@ import com.generationtycoon.model.entities.Difficulty;
 /**
  * @param token
  * @param id
- * @param difficulty
+ * @param difficulty la difficoltà da resettare
  */
 @JsonSerialize
 @JsonDeserialize(as = UserResetReqDto.class)
