@@ -8,6 +8,8 @@ import com.generationtycoon.model.dto.UserUpdateScoreReqDto;
 import com.generationtycoon.model.entities.Difficulty;
 import com.generationtycoon.model.entities.UserTycoon;
 import com.generationtycoon.model.repositories.UserRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
+@Transactional
 public class TestScoreApi {
     @Autowired
     private MockMvc mock;
@@ -36,13 +39,27 @@ public class TestScoreApi {
     @Autowired
     private UserRepository userRepo;
 
+
+    @Autowired
+    private EntityManager entityManager;
+
+
     private String token;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @Transactional
+    void recreateTable() {
+        String creation = "CREATE TABLE user_tycoon (id BIGINT AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, difficulty VARCHAR(50) NOT NULL, score DOUBLE NOT NULL CHECK (score >= 0));";
+        String drop = "DROP TABLE user_tycoon;";
+        entityManager.createNativeQuery(drop).executeUpdate();
+        entityManager.createNativeQuery(creation).executeUpdate();
+    }
+
+    @Transactional
     @BeforeEach
     public void setup() {
-        userRepo.deleteAll();
+        recreateTable();
         List<String> usernames = List.of(
                 "user1",
                 "cool_guy92",
@@ -198,38 +215,32 @@ public class TestScoreApi {
     }
 
     @Test
-    void testResetScore()
-    {
-        try
-        {
+    void testResetScore() {
+        try {
             UserResetReqDto user = new UserResetReqDto(token, 2L, Difficulty.EASY);
             mock.perform(put("/api/users/reset")
-                    .header("token", token)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(mapper.writeValueAsString(user)))
+                            .header("token", token)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(mapper.writeValueAsString(user)))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id").value(2))
                     .andExpect(jsonPath("$.difficulty").value("EASY"));
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     @Test
-    void testResetScoreFailByDifficulty()
-    {
-        try
-        {
+    void testResetScoreFailByDifficulty() {
+        try {
             UserResetReqDto user = new UserResetReqDto(token, 2L, Difficulty.fromString("TAPPETINO"));
             mock.perform(put("/api/users/reset")
                             .header("token", token)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(mapper.writeValueAsString(user)))
                     .andExpect(status().isInternalServerError());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

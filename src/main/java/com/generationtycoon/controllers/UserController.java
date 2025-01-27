@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping("/register")
     public UserLoginRespDto register(@RequestBody UserRegistrationReqDto dto) {
-        UserTycoon userTycoon = cs.register(dto);
+        cs.register(dto);
         UserLoginReqDto dtoLogin =
                 UserLoginReqDto.builder().email(dto.email()).password(dto.password()).build();
         return cs.login(dtoLogin);
@@ -91,6 +91,7 @@ public class UserController {
         return UserLoginRespDto.builder()
                 .id(userTycoon.getId())
                 .token(dto.token())
+                .score(userTycoon.getScore())
                 .username(userTycoon.getUsername())
                 .difficulty(userTycoon.getDifficulty())
                 .build();
