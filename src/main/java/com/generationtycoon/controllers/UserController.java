@@ -2,6 +2,7 @@ package com.generationtycoon.controllers;
 
 import com.generationtycoon.controllers.exceptions.InvalidEstimateException;
 import com.generationtycoon.controllers.exceptions.InvalidTokenException;
+import com.generationtycoon.controllers.exceptions.UserMissingException;
 import com.generationtycoon.controllers.helpers.ControllerHelper;
 import com.generationtycoon.model.dto.*;
 import com.generationtycoon.model.entities.Difficulty;
@@ -111,6 +112,18 @@ public class UserController {
         return new UserScoreRespDto(score);
     }
 
+    /**
+     * Endpoint per eliminare un utente dato il suo ID.
+     *<p>
+     * Questo metodo verifica che l'utente autenticato sia lo stesso dell'utente
+     * che si sta cercando di eliminare.
+     * Se l'ID corrisponde, l'utente viene eliminato dal sistema.
+     *
+     * @param id l'ID dell'utente da eliminare.
+     * @return l'ID dell'utente eliminato.
+     * @throws InvalidTokenException se il token non è valido o se l'utente autenticato
+     *         non corrisponde all'utente che si sta cercando di eliminare.
+     */
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         UserTycoon userTycoon = cs.getUserByToken();
@@ -120,18 +133,54 @@ public class UserController {
         return id;
     }
 
+    /**
+     * Endpoint che restituisce la lista di tutti gli utenti nella leaderboard.
+     * <p>
+     * Questo metodo invoca il servizio per recuperare l'utente attualmente autenticato tramite il token
+     * e poi restituisce la lista completa degli utenti sulla leaderboard.
+     *
+     * @return una lista di {@link UserLeaderboardRespDto} che rappresenta gli utenti e i loro punteggi
+     *         nella leaderboard.
+     */
     @GetMapping
     public List<UserLeaderboardRespDto> getAll() {
         cs.getUserByToken();
         return ch.getAllUsersOnTheLeaderboard();
     }
 
+    /**
+     * Endpoint che restituisce la lista degli utenti sulla leaderboard filtrata per difficoltà.
+     * <p>
+     * Questo metodo esegue due operazioni principali:
+     * <ol>
+     *   <li>Verifica la validità del token dell'utente.</li>
+     *   <li>Recupera e restituisce la lista degli utenti appartenenti alla difficoltà specificata come parametro.</li>
+     * </ol>
+     *
+     * @param difficulty la difficoltà filtrante degli utenti, passata come parametro nell'URL.
+     *                  La difficoltà è un {@link String} che viene poi convertito nel tipo {@link Difficulty}.
+     * @return una lista di {@link UserLeaderboardRespDto} contenente gli utenti filtrati per la difficoltà richiesta.
+     *         Ogni oggetto {@code UserLeaderboardRespDto} rappresenta un utente con il suo {@code username}, la {@code difficoltà} e il suo {@code score}.
+     */
     @GetMapping("/{difficulty}")
     public List<UserLeaderboardRespDto> getAllByDifficulty(@PathVariable String difficulty) {
         cs.getUserByToken();
         return ch.getUsersByDifficulty(Difficulty.fromString(difficulty));
     }
 
+    /**
+     * Endpoint per aggiornare il punteggio di un utente.
+     *<p>
+     * Questo metodo riceve una richiesta contenente l'ID dell'utente e il nuovo punteggio da impostare,
+     * esegue l'aggiornamento del punteggio nel database e restituisce una risposta con i dettagli aggiornati
+     * dell'utente nella classifica.
+     *
+     * @param dto il DTO contenente l'ID dell'utente e il nuovo punteggio da aggiornare.
+     * @return un oggetto {@link UserLeaderboardRespDto} con i dettagli dell'utente aggiornato nella leaderboard.
+     * @throws NullPointerException se l'oggetto {@code dto} è {@code null}.
+     * @throws UserMissingException se l'utente con l'ID fornito non esiste.
+     * @throws InvalidTokenException se il token dell'utente non è valido o non esiste.
+     */
     @PutMapping("/newScore")
     public UserLeaderboardRespDto updateScore(@RequestBody UserUpdateScoreReqDto dto) {
         cs.getUserByToken();
@@ -140,6 +189,22 @@ public class UserController {
         return converter.toUserLeaderboardRespDto(updated);
     }
 
+    /**
+     * Endpoint per resettare i dati di un utente.
+     * <p>
+     * Questo metodo resetta i dati di un utente, mantenendo le informazioni come email, password e username,
+     * ma aggiornando i campi relativi alla difficoltà e al punteggio.
+     * Il reset avviene tramite l'uso di un token che identifica l'utente.
+     *
+     * @param dto il DTO contenente le informazioni necessarie per eseguire il reset:
+     *            - Il token dell'utente che sta eseguendo l'operazione di reset.
+     *            - L''ID dell'utente da resettare.
+     *            - La nuova difficoltà da applicare all'utente.
+     * @return un {@link UserLoginRespDto} contenente i dati dell'utente dopo il reset, inclusi il nuovo punteggio,
+     *         la difficoltà aggiornata e il token dell'utente.
+     * @throws InvalidTokenException se il token fornito non è valido o se l'utente non può essere trovato tramite il token.
+     * @throws UserMissingException  se l'utente con l'ID specificato non esiste nel sistema.
+     */
     @PutMapping("/reset")
     public UserLoginRespDto reset(@RequestBody UserResetReqDto dto) {
         cs.getUserByToken();

@@ -1,7 +1,6 @@
 package com.generationtycoon.controllers;
 
 import com.generationtycoon.controllers.helpers.ControllerHelper;
-import com.generationtycoon.model.dto.BrainjRespDto;
 import com.generationtycoon.model.dto.KaboomRespDto;
 import com.generationtycoon.utils.credentials.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
