@@ -71,7 +71,25 @@ public interface ControllerHelper {
      */
     BrainjRespDto getBrainjById(Long id) throws BrainjMissingException;
 
+    /**
+     * Metodo che aggiorna il punteggio di un utente.
+     * Se l'utente non esiste, viene lanciata un'eccezione.
+     *
+     * @param userTycoon l'utente con le informazioni aggiornate.
+     * @return l'utente aggiornato dopo il salvataggio nel database.
+     * @throws UserMissingException se l'utente con l'id specificato non esiste.
+     */
     UserTycoon updateUser(UserTycoon userTycoon);
 
+    /**
+     * Metodo che resetta i dati di un utente.
+     * I campi email, password e username dell'utente originale vengono mantenuti,
+     * mentre gli altri vengono sovrascritti con i valori forniti nella richiesta.
+     * Se l'utente non esiste, viene lanciata un'eccezione.
+     *
+     * @param userResetReqDto i dati necessari per effettuare il reset.
+     * @return l'utente resettato dopo il salvataggio nel database.
+     * @throws UserMissingException se l'utente con l'id specificato non esiste.
+     */
     UserTycoon resetUser(UserResetReqDto userResetReqDto);
 }

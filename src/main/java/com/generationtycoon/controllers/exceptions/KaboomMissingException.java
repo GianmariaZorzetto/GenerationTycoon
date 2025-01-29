@@ -3,8 +3,21 @@ package com.generationtycoon.controllers.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
+/**
+ * Eccezione che rappresenta la mancanza di un oggetto Kaboom.
+ *<p>
+ * Questa eccezione viene sollevata quando si tenta di accedere a un Kaboom
+ * che non è presente nel database. È annotata con {@link ResponseStatus} per restituire
+ * un codice di stato HTTP 404 (NOT FOUND) al client, segnalando che la risorsa richiesta
+ * non è stata trovata.
+ */
+ @ResponseStatus(HttpStatus.NOT_FOUND)
 public class KaboomMissingException extends RuntimeException {
+    /**
+     * Costruttore per creare un'istanza di {@link KaboomMissingException} con un messaggio specifico.
+     *
+     * @param message il messaggio che descrive l'errore.
+     */
     public KaboomMissingException(String message) {
         super(message);
     }

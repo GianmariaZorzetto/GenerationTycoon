@@ -32,7 +32,7 @@ public class ScoreLogic {
         switch (difficulty) {
             case EASY -> score += 100 * dto.hp();
             case MEDIUM -> score += 300 * dto.hp();
-            case HARD -> score += 1000;
+            case HARD -> score += 1000 * dto.hp();
         }
         return score;
     }

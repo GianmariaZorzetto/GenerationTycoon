@@ -106,6 +106,16 @@ public class DtoConverter {
         return BrainjRespDto.builder().question(brainj.getQuestion()).answer(brainj.getAnswer()).build();
     }
 
+    /**
+     * Metodo che converte un {@link UserResetReqDto} in un {@link UserTycoon},
+     * utilizzando l'ID e la difficoltà specificati nel DTO, e imposta il punteggio a zero.
+     * </p>
+     *
+     * @param dto il DTO contenente i dati necessari per la conversione.
+     * @return un'istanza di {@link UserTycoon} con i campi impostati.
+     * @throws NullPointerException se {@code dto}, {@code dto.id()} o {@code dto.difficulty()} sono {@code null}.
+     * @throws IllegalArgumentException se {@code dto.id()} è minore di 1.
+     */
     public UserTycoon userReseReqDtoToEntity(UserResetReqDto dto) {
         return UserTycoon.builder().id(dto.id()).difficulty(dto.difficulty()).score(0.0).build();
     }
